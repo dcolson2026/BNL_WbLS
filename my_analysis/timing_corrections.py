@@ -666,12 +666,13 @@ def median_and_error(array):
 
 if __name__ == "__main__":
     # stuff only to run when not called via 'import' here
-    phase_directory = "/media/disk_d/WbLS-DATA/raw_root/phase3/muon/" # Oct 31, 2024
+    # phase_directory = "/media/disk_d/WbLS-DATA/raw_root/phase3/muon/" # Oct 31, 2024
+    # phase_directory = "/media/disk_e/WbLS-DATA/raw_root/phase3/muon/"  # Nov 13, 2024
     # phase_directory = "/media/disk_a/WbLS-DATA/raw_root/phase6/muon/" # Jan 07, 2025
     # phase_directory = "/media/disk_b/WbLS-DATA/raw_root/phase6/muon/" # Dec 19, 2024
-    # phase_directory = "/media/disk_e/WbLS-DATA/raw_root/phase4/muon/" # Dec 03, 2024
+    phase_directory = "/media/disk_e/WbLS-DATA/raw_root/phase4/muon/" # Dec 03, 2024
     # phase_directory = "/media/disk_k/WbLS-DATA/raw_root/phase8/muon/" # Mar 11, 2025
-    file_paths_for_ch_delays = [phase_directory + str(f) for f in os.listdir(phase_directory) if os.path.isfile(os.path.join(phase_directory, f))][:200]
+    file_paths_for_ch_delays = [phase_directory + str(f) for f in os.listdir(phase_directory) if os.path.isfile(os.path.join(phase_directory, f))]
     ch_delays_for_a_ch_dict = {key: [] for key in RELEVANT_CHANNELS}
 
     # file_paths_for_ch_delays = [
@@ -716,7 +717,7 @@ if __name__ == "__main__":
     for key, value in ch_delays_for_a_ch_dict.items():
         median, ste_median = median_and_error(value)
         median_dict[key] = median
-        median_error_dict = median_error_dict
+        median_error_dict[key] = ste_median
 
 
     print(median_dict)

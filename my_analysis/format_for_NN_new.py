@@ -83,67 +83,68 @@ PMT_location_dict = {
     "adc_b4_ch11": (-376.8561, 376.8561, 128.7018),
 }
 
-# temporarily using a low statistics one here
+# using ALL data from 4 phases, see /media/disk_o/my_analysis/medians.py
 PMT_channel_delay_dict = {
-    "adc_b1_ch1": np.float64(7.8599166820699455),
-    "adc_b1_ch2": np.float64(4.2279287488665505),
-    "adc_b1_ch3": np.float64(5.574034508625212),
-    "adc_b1_ch4": np.float64(1.462657718896561),
-    "adc_b1_ch5": np.float64(5.46018892397303),
-    "adc_b1_ch6": np.float64(5.409302133389168),
-    "adc_b1_ch7": np.float64(3.9025018950943133),
-    "adc_b1_ch8": np.float64(3.46381735976686),
-    "adc_b1_ch9": np.float64(3.885940297701321),
-    "adc_b1_ch10": np.float64(4.053950701931467),
-    "adc_b1_ch11": np.float64(5.574917569091319),
-    "adc_b1_ch12": np.float64(3.4946922002103027),
-    "adc_b1_ch13": np.float64(2.660567554458799),
-    "adc_b1_ch14": np.float64(3.9224651796362338),
-    "adc_b1_ch15": np.float64(4.611150134965591),
-    "adc_b2_ch0": np.float64(5.657053247743757),
-    "adc_b2_ch1": np.float64(3.9912637690502324),
-    "adc_b2_ch2": np.float64(4.004392700853049),
-    "adc_b2_ch3": np.float64(3.5197659369335343),
-    "adc_b2_ch4": np.float64(2.4646066520412377),
-    "adc_b2_ch5": np.float64(3.59695668842358),
-    "adc_b2_ch6": np.float64(6.1581988684208735),
-    "adc_b2_ch7": np.float64(4.4218622173912525),
-    "adc_b2_ch8": np.float64(0.6521201336279718),
-    "adc_b2_ch9": np.float64(4.226312224499658),
-    "adc_b2_ch10": np.float64(5.533503195204535),
-    "adc_b2_ch11": np.float64(5.29138682467591),
-    "adc_b2_ch12": np.float64(4.0094185548337125),
-    "adc_b2_ch13": np.float64(4.08831536665447),
-    "adc_b2_ch14": np.float64(2.5962437226528117),
-    "adc_b3_ch0": np.float64(3.442589791305678),
-    "adc_b3_ch1": np.float64(1.6667315660917326),
-    "adc_b3_ch2": np.float64(3.423351974027864),
-    "adc_b3_ch3": np.float64(6.209936881382594),
-    "adc_b3_ch4": np.float64(1.3518561473109876),
-    "adc_b3_ch5": np.float64(1.8722080052467223),
-    "adc_b3_ch6": np.float64(4.0035516253739),
-    "adc_b3_ch7": np.float64(3.2043085739745996),
-    "adc_b3_ch8": np.float64(3.8311094721486803),
-    "adc_b3_ch9": np.float64(4.5314879480281345),
-    "adc_b3_ch10": np.float64(2.434797802550851),
-    "adc_b3_ch11": np.float64(3.767981411743301),
-    "adc_b3_ch12": np.float64(2.396616695331079),
-    "adc_b3_ch13": np.float64(3.4128794605255703),
-    "adc_b3_ch14": np.float64(3.246248631680017),
-    "adc_b3_ch15": np.float64(1.4297591545820207),
-    "adc_b4_ch0": np.float64(2.704113081726384),
-    "adc_b4_ch1": np.float64(2.0354747883796236),
-    "adc_b4_ch2": np.float64(4.41186642937317),
-    "adc_b4_ch3": np.float64(3.7450287508165627),
-    "adc_b4_ch4": np.float64(2.039541912010301),
-    "adc_b4_ch5": np.float64(1.9065206786959155),
-    "adc_b4_ch6": np.float64(2.7356183903993316),
-    "adc_b4_ch7": np.float64(3.821243571830856),
-    "adc_b4_ch8": np.float64(10.311279529931609),
-    "adc_b4_ch9": np.float64(2.8341494076225557),
-    "adc_b4_ch10": np.float64(4.047511889036665),
-    "adc_b4_ch11": np.float64(4.251758108079468),
+    "adc_b1_ch1": np.float64(8.030119938430738),
+    "adc_b1_ch2": np.float64(5.160596843708807),
+    "adc_b1_ch3": np.float64(6.183129915008303),
+    "adc_b1_ch4": np.float64(2.1006828929114034),
+    "adc_b1_ch5": np.float64(6.2045754222843446),
+    "adc_b1_ch6": np.float64(6.161676253769009),
+    "adc_b1_ch7": np.float64(4.561973370592692),
+    "adc_b1_ch8": np.float64(4.059154543523331),
+    "adc_b1_ch9": np.float64(4.527702749808608),
+    "adc_b1_ch10": np.float64(4.89672876798353),
+    "adc_b1_ch11": np.float64(6.264616928546467),
+    "adc_b1_ch12": np.float64(4.0887738673544405),
+    "adc_b1_ch13": np.float64(3.6559960302367407),
+    "adc_b1_ch14": np.float64(4.5739947702690955),
+    "adc_b1_ch15": np.float64(5.575061440615521),
+    "adc_b2_ch0": np.float64(6.316710428600398),
+    "adc_b2_ch1": np.float64(4.6156615340751275),
+    "adc_b2_ch2": np.float64(4.651063059501854),
+    "adc_b2_ch3": np.float64(4.240215238749752),
+    "adc_b2_ch4": np.float64(3.29829818445931),
+    "adc_b2_ch5": np.float64(3.9065740208083692),
+    "adc_b2_ch6": np.float64(6.998608781647993),
+    "adc_b2_ch7": np.float64(5.218269533126902),
+    "adc_b2_ch8": np.float64(1.5691269263153176),
+    "adc_b2_ch9": np.float64(5.048373360049517),
+    "adc_b2_ch10": np.float64(6.101505155220909),
+    "adc_b2_ch11": np.float64(5.9255042831075135),
+    "adc_b2_ch12": np.float64(4.576728227848958),
+    "adc_b2_ch13": np.float64(4.806394551240132),
+    "adc_b2_ch14": np.float64(3.4518309802066334),
+    "adc_b3_ch0": np.float64(4.219983404983012),
+    "adc_b3_ch1": np.float64(2.3410189582944896),
+    "adc_b3_ch2": np.float64(4.38371641420724),
+    "adc_b3_ch3": np.float64(6.840023772731689),
+    "adc_b3_ch4": np.float64(2.1118156288779253),
+    "adc_b3_ch5": np.float64(2.5750972348009955),
+    "adc_b3_ch6": np.float64(4.730938465704396),
+    "adc_b3_ch7": np.float64(3.9063029644947553),
+    "adc_b3_ch8": np.float64(4.337709021825615),
+    "adc_b3_ch9": np.float64(5.3446182004022),
+    "adc_b3_ch10": np.float64(3.2323137947678804),
+    "adc_b3_ch11": np.float64(4.585152794796352),
+    "adc_b3_ch12": np.float64(3.1823386547200014),
+    "adc_b3_ch13": np.float64(4.146583102970336),
+    "adc_b3_ch14": np.float64(4.054654654843673),
+    "adc_b3_ch15": np.float64(2.008745263456964),
+    "adc_b4_ch0": np.float64(3.728169312817592),
+    "adc_b4_ch1": np.float64(3.172271565996006),
+    "adc_b4_ch2": np.float64(5.504018432122031),
+    "adc_b4_ch3": np.float64(4.67892164680153),
+    "adc_b4_ch4": np.float64(2.8893489155116834),
+    "adc_b4_ch5": np.float64(2.8683819880358103),
+    "adc_b4_ch6": np.float64(3.9172990994935835),
+    "adc_b4_ch7": np.float64(4.9451057648992744),
+    "adc_b4_ch8": np.float64(11.154814540200347),
+    "adc_b4_ch9": np.float64(3.349086284111587),
+    "adc_b4_ch10": np.float64(4.758447378646148),
+    "adc_b4_ch11": np.float64(4.971188071773195),
 }
+
 
 def get_1t_info(fname: str):
     f = uproot.open(fname)
@@ -180,39 +181,74 @@ def get_1t_info(fname: str):
         run_info,
     )
 
+
 def base_and_flip(waveform):
     """Subtract baseline and reflect over x axis"""
     positive_waveform = (waveform - np.median(waveform)) * (-1)
     return positive_waveform
 
+
+def nn_is_dumb(hitnet_inp, chargenet_inp):
+    """Silly NN is a mere computer and thinks all hit times should begin at 60ns. Take the
+    min PMT hit time and shift it to 60, shift everything else by that same factor as well.
+    However, early dark counts could interfere. So, find median hit time and look behind 20ns
+    and forward 20 ns (40ns window, found from plot of summed waveform cumsum)"""
+    median_hit_time = np.median(hitnet_inp[3])
+    min_hit_time = median_hit_time - 20
+    max_hit_time = median_hit_time + 20
+    remove_these = [
+        i
+        for i in range(len(hitnet_inp[3]))
+        if (hitnet_inp[3][i] < min_hit_time) or (hitnet_inp[3][i] > max_hit_time)
+    ]
+
+    # first make the easy changes to chargenet_inp
+    for idx in sorted(remove_these, reverse=True):
+        del chargenet_inp[0][idx]  # delete dark hit charge
+    chargenet_inp[0] = np.sum(chargenet_inp[0])  # reformulate as sum
+    chargenet_inp[1] -= len(remove_these)  # subtract dark hits
+
+    # now change hitnet_inp
+    for idx in sorted(remove_these, reverse=True):
+        for sublist in hitnet_inp:
+            del sublist[idx]  # delete every entry for dark count
+
+    hit_time_shift = 60 - min(hitnet_inp[3])
+    hitnet_inp[3] = [hit_time + hit_time_shift for hit_time in hitnet_inp[3]]
+    return hitnet_inp, chargenet_inp
+
+
 def weighted_average_hit_time(waveform, window_size=10):
     """Do weighted average in window around pulse. Returns float value at which
-    hit time occurred"""
+    hit time occurred in ns (multiply by 2 at end, 500MHz)"""
     # Call correction algorithm
     waveform = base_and_flip(waveform)
 
     # Make into list
     waveform = list(waveform)
-    
+
     # Find index of max (the pulse peak)
     peak_index = waveform.index(max(waveform))
-    
+
     # Define window bounds
     half_window = window_size // 2
     start = max(0, peak_index - half_window)
     end = min(len(waveform), peak_index + half_window + 1)
-    
+
     # Get time (index) and amplitude (value) in the window
     times = list(range(start, end))
     amplitudes = waveform[start:end]
-    
+
     # Compute weighted average hit time
     numerator = sum(t * a for t, a in zip(times, amplitudes))
     denominator = sum(amplitudes)
-    
+
     if denominator == 0:
         return None  # Avoid divide-by-zero
-    return numerator / denominator
+    # accounts for the fact that we are technically returning the sample index of the peak. since
+    # sampling rate is 500MHz, we multiply by 2 to get ns
+    return (numerator / denominator) * 2
+
 
 def get_channel_charge(waveform):
     """Takes in a raw waveform. Does baseline subtraction, makes it positive, make window of
@@ -220,8 +256,9 @@ def get_channel_charge(waveform):
     returns charge in pC"""
     based_flipped = base_and_flip(waveform)
     time_of_max = np.argmax(based_flipped)
-    charge_pC = np.sum(based_flipped[time_of_max - 5: time_of_max + 5]) / 50
+    charge_pC = np.sum(based_flipped[time_of_max - 5 : time_of_max + 5]) / 50
     return charge_pC
+
 
 def waveform_daisy_correction(waveform, boardID):
     if (boardID < 1) or (boardID > 4):
@@ -232,23 +269,17 @@ def waveform_daisy_correction(waveform, boardID):
     else:
         return waveform[24 * 3 :]
 
+
 def is_pulse(waveform: np.ndarray, range_min: int = 0, range_max: int = 1928) -> bool:
     """Takes in a daisy corrected waveform and looks in a given range to see if there is a pulse.
     For example, you can use some range around an alpha PMT hit if looking for just alpha detections.
+    Uses charge to determine if the pulse exceeds threshold or is just noise / fluctuations
     """
-    threshold_sigma = 15
-    # this is arbitrary, and hopefully sufficient
-    baseline = np.median(waveform[:int(0.5 * len(waveform))])
-    noise_std = np.std(waveform[:int(0.5 * len(waveform))])
-    deviation = np.abs(waveform - baseline)
-    threshold = threshold_sigma * noise_std
-
-    # Get all indices where deviation exceeds threshold
-    pulse_indices = np.where(deviation > threshold)[0]
-    for i in pulse_indices:
-        if range_min <= i <= range_max:
-            return True
+    wave_cut = waveform[range_min:range_max]
+    if get_channel_charge(wave_cut) > 15:
+        return True
     return False
+
 
 def b1_ch0_or_b2_ch15_detections(traces):
     """These are bottom paddle channels, gets list of events with detections."""
@@ -265,6 +296,7 @@ def b1_ch0_or_b2_ch15_detections(traces):
             b2_ch15_only_list.append(i)
     return b1_ch0_only_list, b2_ch15_only_list
 
+
 def b4_ch13_or_ch14_detections(traces):
     """These are top paddle channels, gets list of events with detections."""
     b4_ch13_or_ch14_detection_list = []
@@ -272,7 +304,8 @@ def b4_ch13_or_ch14_detections(traces):
     for i, waveform in enumerate(waveforms_list):
         if is_pulse(waveform):  # this is arbitrary, and hopefully this is sufficient
             b4_ch13_or_ch14_detection_list.append(i)
-    return b4_ch13_or_ch14_detection_list
+    return b4_ch13_or_ch14_detection_list  # could hit both top paddles
+
 
 def top_paddle_event_list(traces) -> list[int]:
     """Returns a list of event indices that correspond to top_paddle trigger events.
@@ -291,16 +324,18 @@ def top_paddle_event_list(traces) -> list[int]:
                 continue
             board_num = int(key[5])
             uncorrected_waveform = traces[key][i]
-            
+
             corrected_waveforms_per_event.append(
                 waveform_daisy_correction(uncorrected_waveform, board_num)
             )
         summed_waveform = np.sum(corrected_waveforms_per_event, axis=0)
+        # using argmin here should be fine, we don't need anything too accurate
         peak_sample_time_ns = np.argmin(summed_waveform) * 2  # converts to ns
         # rough estimate of time range
         if 750 < peak_sample_time_ns and i in top_paddle_PMT_events:
             twice_checked_top_paddle_event_index_list.append(i)
     return twice_checked_top_paddle_event_index_list
+
 
 def get_all_sensor_input(fname: str, peak_method: str):
     """Takes in a file path and a peak_method, which is either CFD or weighted avg.
@@ -308,20 +343,21 @@ def get_all_sensor_input(fname: str, peak_method: str):
 
     all_events = []
     bottom_paddle_tags_list = []
-    
+
     traces = get_1t_info(fname)[0]
     top_paddle_events = top_paddle_event_list(traces)
     bottom_paddle_1, bottom_paddle_2 = b1_ch0_or_b2_ch15_detections(traces)
-    print("BP detections:",bottom_paddle_1,bottom_paddle_2)
+    print("BP detections:", bottom_paddle_1, bottom_paddle_2)
 
     for i in top_paddle_events:
-        #print("starting new TP event")
+        # print("starting new TP event")
         hitnet_input = [[], [], [], [], []]
         chargenet_input = []
-        sum_of_charges_of_all_hits = 0
+        temp_chargenet = []
+        # sum_of_charges_of_all_hits = 0
         num_of_hits = 0
 
-        # Could have just gotten this intersection I guess
+        # Could have just gotten this intersection with TP events I guess
         bottom_paddle_event_tag = 0
         if (i in bottom_paddle_1) and (i in bottom_paddle_2):
             bottom_paddle_event_tag = 3
@@ -329,7 +365,7 @@ def get_all_sensor_input(fname: str, peak_method: str):
             bottom_paddle_event_tag = 1
         elif i in bottom_paddle_2:
             bottom_paddle_event_tag = 2
-        if bottom_paddle_event_tag == 0: # skip, can't do true comparison
+        if bottom_paddle_event_tag == 0:  # skip, can't do true comparison
             continue
 
         # waveform loop to get the i_th waveform for each PMT
@@ -338,24 +374,21 @@ def get_all_sensor_input(fname: str, peak_method: str):
                 continue
             uncorrected_waveform = traces[key][i]
             board_num = int(key[5])
-            
+
             # perform daisy correction and change to ns (500MHz sampling)
             daisy_corrected_waveform = waveform_daisy_correction(
                 uncorrected_waveform, board_num
-            ) * 2
+            )
 
-            # skip if not a pulse (add in pulse window?)
-            # GET ONLY THE NECESSARY EVENTS from TP trigger!!!
-            if not is_pulse(daisy_corrected_waveform, range_min=750):
-                continue
+            # skip if not a pulse
+            # restricting the window could help, but really that's the job of the twice
+            # checked TP events function. make sure superposition is proper
+            # if not is_pulse(daisy_corrected_waveform): #range_min=750):
+            #     continue
 
-            # factors in the channel delay and reassigns it to daisy_corrected_waveform
-            daisy_corrected_waveform = [x - PMT_channel_delay_dict[key] for x in daisy_corrected_waveform]
-
-            # Fix wonky waveforms from Oct 31, 2024 by ensuring charge > 0
-            # potentially not a rigorous fix
+            # gets waveform charge and checks if it's a pulse
             waveform_charge = get_channel_charge(daisy_corrected_waveform)
-            if waveform_charge < 0:
+            if waveform_charge < 15:
                 continue
 
             print("hit for", key)
@@ -366,17 +399,24 @@ def get_all_sensor_input(fname: str, peak_method: str):
             if peak_method == "CFD":
                 hitnet_input[3].append(-1)
             elif peak_method == "W_avg":
-                hitnet_input[3].append(weighted_average_hit_time(daisy_corrected_waveform))
+                w_avg_hit_time = weighted_average_hit_time(daisy_corrected_waveform)
+                if w_avg_hit_time is None:
+                    continue
+                pmt_hit_time = w_avg_hit_time - PMT_channel_delay_dict[key]
+                hitnet_input[3].append(pmt_hit_time)
             hitnet_input[4].append(1)
 
             # chargenet values to later input
-            sum_of_charges_of_all_hits += waveform_charge
+            temp_chargenet.append(waveform_charge)
+            # sum_of_charges_of_all_hits += waveform_charge
             num_of_hits += 1
 
         # chargenet input
-        chargenet_input.append(sum_of_charges_of_all_hits)
+        chargenet_input.append(temp_chargenet)
         chargenet_input.append(num_of_hits)
 
+        # reassign to please the picky NN
+        hitnet_input, chargenet_input = nn_is_dumb(hitnet_input, chargenet_input)
         event = {
             "hits": np.stack(hitnet_input, axis=1),
             "total_charge": np.stack(chargenet_input),
@@ -392,37 +432,47 @@ def get_all_sensor_input(fname: str, peak_method: str):
     return all_events, bottom_paddle_tags_list
 
 
-# num_files = -1
+# num_files = 100
 # phase_directory = "/media/disk_d/WbLS-DATA/raw_root/phase3/muon/" # Oct 31, 2024
-phase_directory = "/media/disk_e/WbLS-DATA/raw_root/phase3/muon/" # Nov 13, 2024
+phase_directory = "/media/disk_e/WbLS-DATA/raw_root/phase3/muon/"  # Nov 13, 2024
 # phase_directory = "/media/disk_a/WbLS-DATA/raw_root/phase6/muon/" # Jan 07, 2025
 # phase_directory = "/media/disk_b/WbLS-DATA/raw_root/phase6/muon/" # Dec 19, 2024
 # phase_directory = "/media/disk_e/WbLS-DATA/raw_root/phase4/muon/" # Dec 03, 2024
 # phase_directory = "/media/disk_k/WbLS-DATA/raw_root/phase8/muon/" # Mar 11, 2025
-file_paths_for_ch_delays = [phase_directory + str(f) for f in os.listdir(phase_directory) if os.path.isfile(os.path.join(phase_directory, f))]
+file_paths_for_ch_delays = [
+    phase_directory + str(f)
+    for f in os.listdir(phase_directory)
+    if os.path.isfile(os.path.join(phase_directory, f))
+]
 
+# files_used = 0
 all_events_for_phase = []
 all_bottom_paddle_tags_for_phase = []
-for fileee in file_paths_for_ch_delays:#[:num_files]:
-    if "water" not in fileee: continue # network was trained on water
+for fileee in file_paths_for_ch_delays:  # [:num_files]:
+    if "water" not in fileee:
+        continue  # network was trained on water
+    # if files_used > 100:
+    #     break
     print("starting new file", fileee)
     try:
         all_eventsy, bottom_paddle_tags_listy = get_all_sensor_input(fileee, "W_avg")
         all_events_for_phase.extend(all_eventsy)
         all_bottom_paddle_tags_for_phase.extend(bottom_paddle_tags_listy)
+        # files_used += 1
     except Exception as e:
         print(f"Skipped {fileee} due to error: {e}")
-        time.sleep(3)
 
 data_to_save = {
     "all_events_for_phase": all_events_for_phase,
-    "all_bottom_paddle_tags_for_phase": all_bottom_paddle_tags_for_phase
+    "all_bottom_paddle_tags_for_phase": all_bottom_paddle_tags_for_phase,
 }
 
 print("completed:", len(all_events_for_phase), len(all_bottom_paddle_tags_for_phase))
-with open(f'/media/disk_o/my_pickles/processed_data_for_disk_e_phase_3_all.pkl', 'wb') as f:
+with open(
+    f"/media/disk_o/my_pickles/07_07_25_processed_data_disk_e_phase_3_all_1.pkl", "wb"
+) as f:
     pickle.dump(data_to_save, f)
 
 # scp /path/to/local/file username@cluster.server.edu:/path/to/cluster/destination/
 # scp /path/to/local/file username@cluster.server.edu:/path/to/cluster/destination/
-# scp /media/disk_o/my_pickles/processed_data_for_disk_k_phase_8_30.pkl dzc5938@submit.hpc.psu.edu:/storage/group/dfc13/default/dcolson/my_pickles
+# scp /media/disk_o/my_pickles/07_07_25_processed_data_disk_e_phase_3_all_1.pkl dzc5938@submit.hpc.psu.edu:/storage/group/dfc13/default/dcolson/my_pickles
