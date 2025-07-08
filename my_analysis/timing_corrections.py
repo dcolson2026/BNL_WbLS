@@ -75,6 +75,8 @@ IRRELEVANT_CHANNELS = [
     "adc_b4_ch14",
     "adc_b4_ch15",
 ]
+
+# 58 TOTAL PMTs
 BOTTOM_PMT_CHANNELS = [
     "adc_b1_ch1",
     "adc_b1_ch2",
@@ -107,7 +109,7 @@ BOTTOM_PMT_CHANNELS = [
     "adc_b2_ch13",
     "adc_b2_ch14",
 ]
-# all side, including supp (28 total)
+# all side, including supp (28)
 SIDE_PMT_CHANNELS = [
     "adc_b3_ch0",
     "adc_b3_ch1",
@@ -139,7 +141,7 @@ SIDE_PMT_CHANNELS = [
     "adc_b4_ch11",
 ]
 
-# produced using /home/dcolson/my_analysis/TOF_alpha_source.py
+# produced using /home/dcolson/my_analysis/tof_alpha_source.py
 CHANNELS_AND_DISTANCES_MM_DICT = {
     "adc_b1_ch1": np.float64(849.099648156799),
     "adc_b1_ch2": np.float64(831.7868912768462),
@@ -200,66 +202,69 @@ CHANNELS_AND_DISTANCES_MM_DICT = {
     "adc_b4_ch10": np.float64(460.8740624497218),
     "adc_b4_ch11": np.float64(476.7335225654475),
 }
+
+# updated to add refractive index of 1.33
 CHANNELS_AND_TIMES_NS_DICT = {
-    "adc_b1_ch1": np.float64(2.8303321605226635),
-    "adc_b1_ch2": np.float64(2.7726229709228205),
-    "adc_b1_ch3": np.float64(2.766661912646518),
-    "adc_b1_ch4": np.float64(2.8127780109508977),
-    "adc_b1_ch5": np.float64(2.723938060154003),
-    "adc_b1_ch6": np.float64(2.5808939450422126),
-    "adc_b1_ch7": np.float64(2.488475548514704),
-    "adc_b1_ch8": np.float64(2.4524130067253265),
-    "adc_b1_ch9": np.float64(2.4751708134097647),
-    "adc_b1_ch10": np.float64(2.555177793335633),
-    "adc_b1_ch11": np.float64(2.6873255395570435),
-    "adc_b1_ch12": np.float64(2.663505861120306),
-    "adc_b1_ch13": np.float64(2.4880268230511953),
-    "adc_b1_ch14": np.float64(2.3614854376477155),
-    "adc_b1_ch15": np.float64(2.2920016300653505),
-    "adc_b2_ch0": np.float64(2.284786964297158),
-    "adc_b2_ch1": np.float64(2.3404173713725127),
-    "adc_b2_ch2": np.float64(2.454623692589604),
-    "adc_b2_ch3": np.float64(2.6197563765018725),
-    "adc_b2_ch4": np.float64(2.5687685549478543),
-    "adc_b2_ch5": np.float64(2.4165568250899643),
-    "adc_b2_ch6": np.float64(2.317594418548873),
-    "adc_b2_ch7": np.float64(2.2788292803298997),
-    "adc_b2_ch8": np.float64(2.3033028217950173),
-    "adc_b2_ch9": np.float64(2.389072390884983),
-    "adc_b2_ch10": np.float64(2.529911438941863),
-    "adc_b2_ch11": np.float64(2.523538548458405),
-    "adc_b2_ch12": np.float64(2.4586388115287603),
-    "adc_b2_ch13": np.float64(2.451914518403029),
-    "adc_b2_ch14": np.float64(2.503834420554913),
-    "adc_b3_ch0": np.float64(2.199868309252978),
-    "adc_b3_ch1": np.float64(1.836335918570819),
-    "adc_b3_ch2": np.float64(1.6317026707808422),
-    "adc_b3_ch3": np.float64(1.9585296412955646),
-    "adc_b3_ch4": np.float64(2.6715255567330396),
-    "adc_b3_ch5": np.float64(2.381125328086608),
-    "adc_b3_ch6": np.float64(2.227124115997031),
-    "adc_b3_ch7": np.float64(2.476583650526579),
-    "adc_b3_ch8": np.float64(2.4783461152438826),
-    "adc_b3_ch9": np.float64(2.16215367046892),
-    "adc_b3_ch10": np.float64(1.9912891539709203),
-    "adc_b3_ch11": np.float64(2.2668518356351),
-    "adc_b3_ch12": np.float64(2.4154233399942315),
-    "adc_b3_ch13": np.float64(2.089731786418216),
-    "adc_b3_ch14": np.float64(1.9124076289239873),
-    "adc_b3_ch15": np.float64(2.1978825467177874),
-    "adc_b4_ch0": np.float64(1.7474998214994666),
-    "adc_b4_ch1": np.float64(1.6055508526460114),
-    "adc_b4_ch2": np.float64(1.656205062242059),
-    "adc_b4_ch3": np.float64(2.112033396076082),
-    "adc_b4_ch4": np.float64(1.9961770914506394),
-    "adc_b4_ch5": np.float64(2.0371412931351185),
-    "adc_b4_ch6": np.float64(2.162966515261082),
-    "adc_b4_ch7": np.float64(2.0499907464260256),
-    "adc_b4_ch8": np.float64(2.089900411071356),
-    "adc_b4_ch9": np.float64(1.6840476674193838),
-    "adc_b4_ch10": np.float64(1.536246874832406),
-    "adc_b4_ch11": np.float64(1.589111741884825),
+    "adc_b1_ch1": np.float64(3.7643417734951425),
+    "adc_b1_ch2": np.float64(3.6875885513273516),
+    "adc_b1_ch3": np.float64(3.679660343819869),
+    "adc_b1_ch4": np.float64(3.740994754564694),
+    "adc_b1_ch5": np.float64(3.6228376200048245),
+    "adc_b1_ch6": np.float64(3.432588946906143),
+    "adc_b1_ch7": np.float64(3.3096724795245565),
+    "adc_b1_ch8": np.float64(3.2617092989446843),
+    "adc_b1_ch9": np.float64(3.291977181834987),
+    "adc_b1_ch10": np.float64(3.3983864651363924),
+    "adc_b1_ch11": np.float64(3.574142967610868),
+    "adc_b1_ch12": np.float64(3.542462795290007),
+    "adc_b1_ch13": np.float64(3.30907567465809),
+    "adc_b1_ch14": np.float64(3.140775632071462),
+    "adc_b1_ch15": np.float64(3.0483621679869164),
+    "adc_b2_ch0": np.float64(3.0387666625152203),
+    "adc_b2_ch1": np.float64(3.112755103925442),
+    "adc_b2_ch2": np.float64(3.2646495111441736),
+    "adc_b2_ch3": np.float64(3.4842759807474906),
+    "adc_b2_ch4": np.float64(3.4164621780806463),
+    "adc_b2_ch5": np.float64(3.2140205773696526),
+    "adc_b2_ch6": np.float64(3.0824005766700013),
+    "adc_b2_ch7": np.float64(3.030842942838767),
+    "adc_b2_ch8": np.float64(3.0633927529873732),
+    "adc_b2_ch9": np.float64(3.1774662798770277),
+    "adc_b2_ch10": np.float64(3.364782213792678),
+    "adc_b2_ch11": np.float64(3.356306269449679),
+    "adc_b2_ch12": np.float64(3.269989619333251),
+    "adc_b2_ch13": np.float64(3.2610463094760287),
+    "adc_b2_ch14": np.float64(3.3300997793380347),
+    "adc_b3_ch0": np.float64(2.925824851306461),
+    "adc_b3_ch1": np.float64(2.4423267716991894),
+    "adc_b3_ch2": np.float64(2.1701645521385204),
+    "adc_b3_ch3": np.float64(2.604844422923101),
+    "adc_b3_ch4": np.float64(3.553128990454943),
+    "adc_b3_ch5": np.float64(3.166896686355189),
+    "adc_b3_ch6": np.float64(2.9620750742760515),
+    "adc_b3_ch7": np.float64(3.29385625520035),
+    "adc_b3_ch8": np.float64(3.296200333274364),
+    "adc_b3_ch9": np.float64(2.875664381723664),
+    "adc_b3_ch10": np.float64(2.648414574781324),
+    "adc_b3_ch11": np.float64(3.0149129413946834),
+    "adc_b3_ch12": np.float64(3.2125130421923282),
+    "adc_b3_ch13": np.float64(2.779343275936227),
+    "adc_b3_ch14": np.float64(2.5435021464689034),
+    "adc_b3_ch15": np.float64(2.9231837871346573),
+    "adc_b4_ch0": np.float64(2.3241747625942906),
+    "adc_b4_ch1": np.float64(2.1353826340191953),
+    "adc_b4_ch2": np.float64(2.2027527327819385),
+    "adc_b4_ch3": np.float64(2.8090044167811894),
+    "adc_b4_ch4": np.float64(2.6549155316293507),
+    "adc_b4_ch5": np.float64(2.7093979198697076),
+    "adc_b4_ch6": np.float64(2.8767454652972395),
+    "adc_b4_ch7": np.float64(2.7264876927466144),
+    "adc_b4_ch8": np.float64(2.7795675467249037),
+    "adc_b4_ch9": np.float64(2.2397833976677806),
+    "adc_b4_ch10": np.float64(2.0432083435271),
+    "adc_b4_ch11": np.float64(2.1135186167068176),
 }
+
 
 def get_1t_info(fname: str):
     f = uproot.open(fname)
@@ -296,6 +301,7 @@ def get_1t_info(fname: str):
         run_info,
     )
 
+
 def correct_times(event_ttt1, event_ttt5, event_id):
     """Correct the events by comparing closest in 1 and 5 board"""
     array_idx = sorted(range(len(event_id)), key=lambda i: event_id[i])
@@ -327,6 +333,7 @@ def correct_times(event_ttt1, event_ttt5, event_id):
     event_ttt5_good_final = np.array(array_idx)[event_ttt5_good_idx]
 
     return event_ttt1_good_final, event_ttt5_good_final
+
 
 def write_corrected_root(
     outfname,
@@ -366,6 +373,7 @@ def write_corrected_root(
         output_file["run_info"] = {branch: data[branch] for branch in data}
     output_file.close()
 
+
 def waveform_daisy_correction(waveform, boardID):
     if (boardID < 1) or (boardID > 4):
         print("Bad BoardID")
@@ -374,6 +382,7 @@ def waveform_daisy_correction(waveform, boardID):
         return waveform[24 * (4 - boardID) : -24 * (boardID - 1)]
     else:
         return waveform[24 * 3 :]
+
 
 def need_event_mismatch_correction(fname: str):
     """This function breaks at year 2100. But so does this file convention naming anyways."""
@@ -384,6 +393,7 @@ def need_event_mismatch_correction(fname: str):
         print("event mismatch will be done for " + fname)
         return True
     return False
+
 
 def quickly_correct_file(fname: str, outfname: str) -> str:
     """Does only event mismatch correction, and only if needed."""
@@ -422,6 +432,7 @@ def quickly_correct_file(fname: str, outfname: str) -> str:
     print("ROOT file corrected for " + fname)
     return outfname
 
+
 def b4_ch12_detections(traces) -> list[int]:
     """Returns a list of the event indices where the alpha PMT goes off. The waveform is not altered at all prior to this.
     In other words, we are purely looking at the shape of the waveform."""
@@ -431,6 +442,7 @@ def b4_ch12_detections(traces) -> list[int]:
         if is_pulse(waveform):  # this is arbitrary, and hopefully this is sufficient
             b4_ch12_detection_list.append(i)
     return b4_ch12_detection_list
+
 
 def alpha_event_list(traces) -> list[int]:
     """Returns a list of event indices that correspond to alpha particle events.
@@ -459,6 +471,7 @@ def alpha_event_list(traces) -> list[int]:
             twice_checked_alpha_event_index_list.append(i)
     return twice_checked_alpha_event_index_list
 
+
 def peak_of_waveform_sum_in_event(traces):
     """Calculates superposition of waveforms from relevant PMTs per event.
     Takes TIME of peak value of superposition and adds to list."""
@@ -482,6 +495,7 @@ def peak_of_waveform_sum_in_event(traces):
         peak_sample_time_list.append(peak_sample_time_ns)
     return peak_sample_time_list
 
+
 def get_channel_delays(traces):
     """For every alpha event, a dict is made with keys as PMT channels and values as delays.
     This dict is appended to a list for every event, and the list is returned."""
@@ -491,8 +505,7 @@ def get_channel_delays(traces):
         event_channel_delays_ns_dict = {}
         # daisy correction, finds time of pulse, converts alpha hit time in ns
         alpha_hit_time_i = (
-            np.argmin(waveform_daisy_correction(traces["adc_b4_ch12"][event_i], 4))
-            * 2
+            np.argmin(waveform_daisy_correction(traces["adc_b4_ch12"][event_i], 4)) * 2
         )
         event_channel_delays_ns_dict["adc_b4_ch12"] = alpha_hit_time_i
 
@@ -506,7 +519,11 @@ def get_channel_delays(traces):
             )
             # if is_pulse(corrected_waveform, 550 // 2, 750 // 2):
             # is_pulse uses sample index and alpha_hit_time_i is in ns, oops
-            if is_pulse(corrected_waveform, (alpha_hit_time_i - 20) // 2, (alpha_hit_time_i + 40) // 2):
+            if is_pulse(
+                corrected_waveform,
+                (alpha_hit_time_i - 20) // 2,
+                (alpha_hit_time_i + 40) // 2,
+            ):
                 pmt_hit_time = weighted_average_hit_time(corrected_waveform) * 2
                 event_channel_delays_ns_dict[key] = (
                     pmt_hit_time - alpha_hit_time_i - CHANNELS_AND_TIMES_NS_DICT[key]
@@ -517,10 +534,12 @@ def get_channel_delays(traces):
         channel_delays.append(event_channel_delays_ns_dict)
     return channel_delays
 
+
 def base_and_flip(waveform):
     """Subtract baseline and reflect over x axis"""
     positive_waveform = (waveform - np.median(waveform)) * (-1)
     return positive_waveform
+
 
 def get_channel_charge(waveform):
     """Takes in a raw waveform. Does baseline subtraction, makes it positive, make window of
@@ -528,8 +547,9 @@ def get_channel_charge(waveform):
     returns charge in pC"""
     based_flipped = base_and_flip(waveform)
     time_of_max = np.argmax(based_flipped)
-    charge_pC = np.sum(based_flipped[time_of_max - 15: time_of_max + 15]) / 50
+    charge_pC = np.sum(based_flipped[time_of_max - 5 : time_of_max + 5]) / 50
     return charge_pC
+
 
 def weighted_average_hit_time(waveform, window_size=10):
     """Do weighted average in window around pulse. Returns float value at which
@@ -539,44 +559,57 @@ def weighted_average_hit_time(waveform, window_size=10):
 
     # Make into list
     waveform = list(waveform)
-    
+
     # Find index of max (the pulse peak)
     peak_index = waveform.index(max(waveform))
-    
+
     # Define window bounds
     half_window = window_size // 2
     start = max(0, peak_index - half_window)
     end = min(len(waveform), peak_index + half_window + 1)
-    
+
     # Get time (index) and amplitude (value) in the window
     times = list(range(start, end))
     amplitudes = waveform[start:end]
-    
+
     # Compute weighted average hit time
     numerator = sum(t * a for t, a in zip(times, amplitudes))
     denominator = sum(amplitudes)
-    
+
     if denominator == 0:
         return None  # Avoid divide-by-zero
     return numerator / denominator
 
+
+# def is_pulse(waveform: np.ndarray, range_min: int = 0, range_max: int = 1928) -> bool:
+#     """Takes in a daisy corrected waveform and looks in a given range to see if there is a pulse.
+#     For example, you can use some range around an alpha PMT hit if looking for just alpha detections.
+#     """
+#     threshold_sigma = 20
+#     # this is arbitrary, and hopefully sufficient
+#     baseline = np.median(waveform[: int(0.5 * len(waveform))])
+#     noise_std = np.std(waveform[: int(0.5 * len(waveform))])
+#     deviation = np.abs(waveform - baseline)
+#     threshold = threshold_sigma * noise_std
+
+#     # Get all indices where deviation exceeds threshold
+#     pulse_indices = np.where(deviation > threshold)[0]
+#     for i in pulse_indices:
+#         if range_min <= i <= range_max:
+#             return True
+#     return False
+
+
 def is_pulse(waveform: np.ndarray, range_min: int = 0, range_max: int = 1928) -> bool:
     """Takes in a daisy corrected waveform and looks in a given range to see if there is a pulse.
     For example, you can use some range around an alpha PMT hit if looking for just alpha detections.
+    Uses charge to determine if the pulse exceeds threshold or is just noise / fluctuations
     """
-    threshold_sigma = 20
-    # this is arbitrary, and hopefully sufficient
-    baseline = np.median(waveform[:int(0.5 * len(waveform))])
-    noise_std = np.std(waveform[:int(0.5 * len(waveform))])
-    deviation = np.abs(waveform - baseline)
-    threshold = threshold_sigma * noise_std
-
-    # Get all indices where deviation exceeds threshold
-    pulse_indices = np.where(deviation > threshold)[0]
-    for i in pulse_indices:
-        if range_min <= i <= range_max:
-            return True
+    wave_cut = waveform[range_min:range_max]
+    if get_channel_charge(wave_cut) > 15:
+        return True
     return False
+
 
 def b4_ch13_or_ch14_detections(traces):
     """These are top paddle channels, gets list of events with detections."""
@@ -587,6 +620,7 @@ def b4_ch13_or_ch14_detections(traces):
             b4_ch13_or_ch14_detection_list.append(i)
     return b4_ch13_or_ch14_detection_list
 
+
 def b1_ch0_or_b2_ch15(traces):
     """These are bottom paddle channels, gets list of events with detections."""
     b4_ch13_or_ch14_detection_list = []
@@ -595,6 +629,7 @@ def b1_ch0_or_b2_ch15(traces):
         if is_pulse(waveform):  # this is arbitrary, and hopefully this is sufficient
             b4_ch13_or_ch14_detection_list.append(i)
     return b4_ch13_or_ch14_detection_list
+
 
 def top_paddle_event_list(traces) -> list[int]:
     """Returns a list of event indices that correspond to top_paddle trigger events.
@@ -623,10 +658,12 @@ def top_paddle_event_list(traces) -> list[int]:
             twice_checked_top_paddle_event_index_list.append(i)
     return twice_checked_top_paddle_event_index_list
 
+
 def more_than_26_bottom(traces) -> list[int]:
     """Returns of a list of event indices where 26 or more bottom PMTs
     detect a pulse"""
     pass
+
 
 def extract_gains(csv_file_path: str) -> dict[float]:
     """Opens the csv file and extracts the channel as keys and spe mean as value.
@@ -642,6 +679,7 @@ def extract_gains(csv_file_path: str) -> dict[float]:
         pmt_channel = str(fields[1])
         gains_dict[pmt_channel] = float(fields[3])
     return gains_dict
+
 
 def median_and_error(array):
     """Returns median and its standard error"""
@@ -661,27 +699,23 @@ def median_and_error(array):
     sem_median = 1.25 * sem
 
     return median, sem_median
-   
 
 
 if __name__ == "__main__":
     # stuff only to run when not called via 'import' here
-    # phase_directory = "/media/disk_d/WbLS-DATA/raw_root/phase3/muon/" # Oct 31, 2024
+    phase_directory = "/media/disk_d/WbLS-DATA/raw_root/phase3/muon/"  # Oct 31, 2024
     # phase_directory = "/media/disk_e/WbLS-DATA/raw_root/phase3/muon/"  # Nov 13, 2024
     # phase_directory = "/media/disk_a/WbLS-DATA/raw_root/phase6/muon/" # Jan 07, 2025
     # phase_directory = "/media/disk_b/WbLS-DATA/raw_root/phase6/muon/" # Dec 19, 2024
-    phase_directory = "/media/disk_e/WbLS-DATA/raw_root/phase4/muon/" # Dec 03, 2024
+    # phase_directory = "/media/disk_e/WbLS-DATA/raw_root/phase4/muon/"  # Dec 03, 2024
     # phase_directory = "/media/disk_k/WbLS-DATA/raw_root/phase8/muon/" # Mar 11, 2025
-    file_paths_for_ch_delays = [phase_directory + str(f) for f in os.listdir(phase_directory) if os.path.isfile(os.path.join(phase_directory, f))]
+    file_paths_for_ch_delays = [
+        phase_directory + str(f)
+        for f in os.listdir(phase_directory)
+        if os.path.isfile(os.path.join(phase_directory, f))
+    ]
     ch_delays_for_a_ch_dict = {key: [] for key in RELEVANT_CHANNELS}
 
-    # file_paths_for_ch_delays = [
-    #     "/media/disk_a/WbLS-DATA/raw_root/phase6/muon/muon_wbls05_250105T0911_127.root",
-    #     "/media/disk_a/WbLS-DATA/raw_root/phase7/muon/muon_wbls06_250111T1142_7.root",
-    #     "/media/disk_b/WbLS-DATA/raw_root/phase5/muon/muon_wbls04_241216T1018_68.root",
-    #     "/media/disk_d/WbLS-DATA/raw_root/phase3/muon/muon_water_241106T0956_84.root",
-    #     "/media/disk_l/WbLS-DATA/raw_root/phase9/muon/muon_wbls1pct_250327T1002_97.root",
-    # ]
     # get channel delays for multiple files
     for fpath in file_paths_for_ch_delays:
         print("now doing", fpath)
@@ -703,7 +737,7 @@ if __name__ == "__main__":
                 file_daqkeys,
                 file_run_info,
             ) = get_1t_info(fpath)
-            
+
             ch_delay_list_per_file = get_channel_delays(file_traces)
             for alpha_event_dict in ch_delay_list_per_file:
                 for key in alpha_event_dict:
@@ -711,7 +745,7 @@ if __name__ == "__main__":
                         ch_delays_for_a_ch_dict[key].append(alpha_event_dict[key])
         except Exception as e:
             print(f"Skipped {fpath} due to error: {e}")
-    
+
     median_dict = {key: None for key in RELEVANT_CHANNELS}
     median_error_dict = {key: None for key in RELEVANT_CHANNELS}
     for key, value in ch_delays_for_a_ch_dict.items():
@@ -719,236 +753,4 @@ if __name__ == "__main__":
         median_dict[key] = median
         median_error_dict[key] = ste_median
 
-
     print(median_dict)
-
-
-    # # Create the histograms
-    # for key, value in ch_delays_for_a_ch_dict.items():
-    #     plt.figure(figsize=(8, 6))
-    #     plt.hist([i for i in value if i is not None], bins=10, edgecolor="black")
-    #     plt.title("Channel Delays for " + key)
-    #     plt.xlabel("Delay in ns")
-    #     plt.ylabel("Counts")
-    #     # plt.yscale("log")
-    #     # plt.xlim(0, 100)
-    #     # plt.xticks(np.arange(0, 1001, 50))
-
-    #     # Save the figure
-    #     plt.savefig(f"/media/disk_o/my_histograms/disk_d_phase_3/{key}_delays.pdf")
-    #     plt.close()
-
-
-    # ORDERS OF CORRECTION
-    # first correct event mismatch
-    # then do daisy chain effects
-    # then alpha timing (minute adjustment)
-
-    # Okay, we can pretty easily make some kind of loop that goes through every file and corrects it if it matches the dating criteria
-    # Now let's look at the daisy chain effect in our /home/dcolson/my_analysis/corrected_file_test.root
-
-    # MAKE CORRECT FILE
-    # quickly_correct_file("/media/disk_a/WbLS-DATA/raw_root/phase6/muon/muon_wbls05_250102T0921_65.root", f"test{test_num}.root")
-    # quickly_correct_file("/media/disk_a/WbLS-DATA/raw_root/phase7/muon/muon_wbls06_250112T1041_97.root", f"/media/disk_o/my_corrected_roots/test{test_num}.root")
-    # quickly_correct_file(
-    #     "/media/disk_c/WbLS-DATA/raw_root/phase3/muon/muon_water_241020T0943_91.root",
-    #     f"/media/disk_o/my_corrected_roots/test{test_num}.root",
-    # )
-
-    # ANALYZING CORRECTED FILE
-    # corrected_file_name = f"/media/disk_o/my_corrected_roots/test{test_num}.root"
-    # (
-    #     file_traces,
-    #     event_ttt1,
-    #     event_ttt2,
-    #     event_ttt3,
-    #     event_ttt4,
-    #     event_ttt5,
-    #     file_event_ids,
-    #     file_event_sanity,
-    #     file_daqkeys,
-    #     file_run_info,
-    # ) = get_1t_info(corrected_file_name)
-
-    # gains_dict = extract_gains("/media/disk_a/WbLS-DATA/csv/phase6/bnl1t_spe_fit_results_250102.csv")
-
-    """AHHHH"""
-
-    # #####
-    # # event loop
-    # num_events = len(file_traces["adc_b2_ch1"])
-    # the_alpha_events = alpha_event_list(file_traces)
-    # the_top_paddle_events = top_paddle_event_list(file_traces)
-    # # throughgoing_events = list(set(b4_ch13_or_ch14_detections) + set(b1_ch0_or_b2_ch15))
-
-    # # set logic to get majority list
-    # set_alpha = set(the_alpha_events)
-    # set_top_paddle = set(the_top_paddle_events)
-    # set_alpha_and_TP = set_alpha.union(set_top_paddle)
-    # set_temp = set([x for x in range(num_events)])
-    # the_majority_events = list(set_temp - set_alpha_and_TP)
-
-    # ratio_side_to_bottom_PE_list = []
-    # total_PE_per_event_list = []
-
-    # # event loop, iterate through all events
-    # for i in range(num_events):
-    #     bottom_PE = 0
-    #     side_PE = 0
-
-    #     # PMT channel loop to iterate through channels
-    #     for key in file_traces.keys():
-    #         if ("b5" in key) or (key in IRRELEVANT_CHANNELS):
-    #             continue
-
-    #         board_num = int(key[5])
-    #         # correct the daisy chain as a function of board number
-    #         corrected_waveform = waveform_daisy_correction(file_traces[key][i], board_num)
-    #         # do rudimentary baseline subtraction and reflect across x axis
-    #         corrected_waveform = (corrected_waveform - np.median(corrected_waveform))* (-1)
-    #         # also a rudimentary but effective peak indx finder
-    #         peak_indx = np.argmax(corrected_waveform)
-    #         # make windows so that we integrate around the peak just to be careful I thought it might help
-    #         lower_window = peak_indx - 20
-    #         upper_window = peak_indx + 20
-
-    #         if key in BOTTOM_PMT_CHANNELS:
-    #             bottom_PE += np.sum(corrected_waveform[lower_window:upper_window]) / gains_dict[key]
-    #         elif key in SIDE_PMT_CHANNELS:
-    #             side_PE += np.sum(corrected_waveform[lower_window:upper_window]) / gains_dict[key]
-    #     if bottom_PE != 0:
-    #         ratio_side_to_bottom_PE_list.append(side_PE / bottom_PE)
-    #     else:
-    #         print("bad div by zero")
-    #     total_PE_per_event_list.append(side_PE + bottom_PE)
-    # #####
-
-    ####
-    # MAKE MATPLOT
-
-    # multiple plots
-
-    # # Create the histogram
-    # plt.figure(figsize=(8, 6))
-    # plt.hist(total_PE_per_event_list, bins="auto", edgecolor="black")
-    # plt.title("Total PE per Event")
-    # plt.xlabel("PE")
-    # plt.ylabel("Counts")
-    # # plt.yscale("log")
-    # plt.xlim(0, 0.5e6)
-    # # plt.legend()
-    # # plt.xticks(np.arange(0, 1001, 50))
-
-    # # Save the figure
-    # plt.savefig("/media/disk_o/my_histograms/total_PE_per_event.pdf")
-    # plt.close()
-
-    ####
-
-    # alpha_PMT_events = b4_ch12_detections(file_traces)
-
-    # # Sunwoo says board 1 is "master board", so there shouldn't be a 48ns delay for that one
-    # # Now we just have to correct for cable delays with alpha timing
-    # num_events = len(file_traces["adc_b2_ch1"])
-
-    # # event loop
-    # peak_sample_time_list = []
-    # twice_checked_alpha_event_index_list = []
-    # for i in range(num_events):
-    #     corrected_waveforms_per_event = []
-    #     # waveform loop to get the i_th waveform for each PMT
-    #     for key in file_traces.keys():
-    #         if ("b5" in key) or (key in IRRELEVANT_CHANNELS):
-    #             continue
-    #         # print(key, type(file_traces[key][i]), len(file_traces[key][i]))
-    #         # time.sleep(5)
-    #         board_num = int(key[5])
-    #         uncorrected_waveform = file_traces[key][i]
-    #         corrected_waveforms_per_event.append(
-    #             waveform_daisy_correction(uncorrected_waveform, board_num)
-    #         )
-    #     summed_waveform = np.sum(corrected_waveforms_per_event, axis=0)
-    #     peak_sample_time_ns = np.argmin(summed_waveform) * 2  # converts ADU to mV
-    #     peak_sample_time_list.append(peak_sample_time_ns)
-    #     if 550 < peak_sample_time_ns < 750 and i in alpha_PMT_events:
-    #         twice_checked_alpha_event_index_list.append(i)
-
-    # print(len(twice_checked_alpha_event_index_list), twice_checked_alpha_event_index_list)
-
-    # # Let's do it again!
-    # # waveforms_of_interest = []  # store as lists of [event_num, key, waveform]
-    # # num_alpha_events = len(twice_checked_alpha_event_index_list)
-    # channel_delays = []
-    # for event_i in twice_checked_alpha_event_index_list:
-    #     event_channel_delays_ns_dict = {}
-    #     alpha_hit_time_i = np.argmin(\
-    #     waveform_daisy_correction(file_traces["adc_b4_ch12"][event_i], 4)) * 2 # daisy correction, finds time of pulse, converts alpha hit time in ns
-    #     event_channel_delays_ns_dict["adc_b4_ch12"] = alpha_hit_time_i
-
-    #     # waveform loop to get the i_th waveform for each PMT
-    #     for key in file_traces.keys():
-    #         if ("b5" in key) or (key in IRRELEVANT_CHANNELS):
-    #             continue
-    #         board_num = int(key[5])
-    #         uncorrected_waveform = file_traces[key][event_i]
-    #         pmt_hit_time = np.argmin(waveform_daisy_correction(uncorrected_waveform, board_num)) * 2
-    #         event_channel_delays_ns_dict[key] = pmt_hit_time - alpha_hit_time_i - CHANNELS_AND_TIMES_NS_DICT[key]
-
-    #     channel_delays.append(event_channel_delays_ns_dict)
-
-    """AHHHH"""
-
-    # billy = get_channel_delays(file_traces)
-    # print(len(billy))
-    # for i in range(len(billy)):
-    #     print(billy[i]["adc_b2_ch10"])  # 10.463753125167594
-
-    #####
-    # # MAKE MATPLOT
-    # PATH = "/home/dcolson/my_histograms"
-    # filename = f"histogram_test_PMT_differences.pdf"
-    # output_path = os.path.join(PATH, filename)
-
-    # # multiple plots
-
-    # # Create the histogram
-    # plt.figure(figsize=(8, 6))
-    # for elem in waveforms_of_interest:
-    #     if elem[0] == 43:
-    #         plt.plot(elem[2], label=elem[1])
-    # # plt.title(f"Waveform from adc_b5_ch34, event {i}")
-    # plt.title(f"Waveforms for alpha event {43}")
-    # plt.xlabel("ADU")
-    # plt.ylabel("Amplitude")
-    # # plt.yscale("log")
-
-    # plt.xlim(325, 425)
-    # plt.legend()
-    # # plt.xticks(np.arange(0, 1001, 50))
-
-    # # Save the figure
-    # plt.savefig(output_path)
-    # plt.close()
-
-    #####
-    # # Create the histogram
-    # plt.figure(figsize=(8, 6))
-    # plt.hist(peak_sample_time_list, bins=175, edgecolor="black")
-    # plt.title("Peak Maximum Timing")
-    # plt.xlabel("time in ns")
-    # plt.ylabel("Frequency")
-    # plt.yscale("log")
-
-    # plt.xlim(0, 1000)
-    # plt.xticks(np.arange(0, 1001, 50))
-
-    # # Save the figure
-    # plt.savefig(output_path)
-    # plt.close()
-
-    # Okay so let's write a function to get just our alpha events
-    # Recall majority,alpha, and top paddles are peaks in order from left to right
-
-    # Let's do a rough estimate that it's between 550,750 ns
-
-    # Notes: need to implement is_pulse to get_channel_delays. that should be easy, so gonna start on 1D CNN

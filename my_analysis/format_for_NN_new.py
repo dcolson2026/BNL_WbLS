@@ -250,6 +250,34 @@ def weighted_average_hit_time(waveform, window_size=10):
     return (numerator / denominator) * 2
 
 
+def constant_fraction_time(signal, fraction=0.5, time_step=1.0):
+    """
+    Estimate the pulse time using Constant Fraction Discrimination (CFD).
+
+    Parameters:
+        signal (list or np.array): The waveform values.
+        fraction (float): Fraction of max amplitude for threshold (e.g., 0.5 for 50%).
+        time_step (float): Time difference between samples (default 1.0, adjust for real data).
+
+    Returns:
+        Estimated time when the signal crosses 'fraction' of its max.
+    """
+    signal = np.array(base_and_flip(signal))
+    max_val = np.max(signal)
+    threshold = fraction * max_val
+
+    # Find where signal crosses threshold
+    for i in range(1, len(signal)):
+        if signal[i - 1] < threshold <= signal[i]:
+            # Linear interpolation to estimate more precise crossing time
+            t0 = (i - 1) * time_step
+            y0 = signal[i - 1]
+            y1 = signal[i]
+            crossing_time = t0 + time_step * (threshold - y0) / (y1 - y0)
+            return crossing_time
+    return None  # No crossing found
+
+
 def get_channel_charge(waveform):
     """Takes in a raw waveform. Does baseline subtraction, makes it positive, make window of
     size 60ns / 30 sample, integrate by just taking sum (nothing fancy), divide by 50 (resistance),
@@ -397,13 +425,17 @@ def get_all_sensor_input(fname: str, peak_method: str):
             hitnet_input[1].append(PMT_location_dict[key][1])
             hitnet_input[2].append(PMT_location_dict[key][2])
             if peak_method == "CFD":
-                hitnet_input[3].append(-1)
+                peak_method_hit_time = constant_fraction_time(
+                    daisy_corrected_waveform, fraction=0.5, time_step=2
+                )
             elif peak_method == "W_avg":
-                w_avg_hit_time = weighted_average_hit_time(daisy_corrected_waveform)
-                if w_avg_hit_time is None:
-                    continue
-                pmt_hit_time = w_avg_hit_time - PMT_channel_delay_dict[key]
-                hitnet_input[3].append(pmt_hit_time)
+                peak_method_hit_time = weighted_average_hit_time(
+                    daisy_corrected_waveform
+                )
+            if peak_method_hit_time is None:
+                continue  # if peak method fails, continue
+            pmt_hit_time = peak_method_hit_time - PMT_channel_delay_dict[key]
+            hitnet_input[3].append(pmt_hit_time)
             hitnet_input[4].append(1)
 
             # chargenet values to later input
@@ -455,7 +487,7 @@ for fileee in file_paths_for_ch_delays:  # [:num_files]:
     #     break
     print("starting new file", fileee)
     try:
-        all_eventsy, bottom_paddle_tags_listy = get_all_sensor_input(fileee, "W_avg")
+        all_eventsy, bottom_paddle_tags_listy = get_all_sensor_input(fileee, "CFD")
         all_events_for_phase.extend(all_eventsy)
         all_bottom_paddle_tags_for_phase.extend(bottom_paddle_tags_listy)
         # files_used += 1
@@ -469,10 +501,11 @@ data_to_save = {
 
 print("completed:", len(all_events_for_phase), len(all_bottom_paddle_tags_for_phase))
 with open(
-    f"/media/disk_o/my_pickles/07_07_25_processed_data_disk_e_phase_3_all_1.pkl", "wb"
+    f"/media/disk_o/my_pickles/07_07_25_processed_data_disk_e_phase_3_allsensor_CFD_1.pkl",
+    "wb",
 ) as f:
     pickle.dump(data_to_save, f)
 
 # scp /path/to/local/file username@cluster.server.edu:/path/to/cluster/destination/
 # scp /path/to/local/file username@cluster.server.edu:/path/to/cluster/destination/
-# scp /media/disk_o/my_pickles/07_07_25_processed_data_disk_e_phase_3_all_1.pkl dzc5938@submit.hpc.psu.edu:/storage/group/dfc13/default/dcolson/my_pickles
+# scp /media/disk_o/my_pickles/07_07_25_processed_data_disk_e_phase_3_allsensor_CFD_1.pkl dzc5938@submit.hpc.psu.edu:/storage/group/dfc13/default/dcolson/my_pickles
