@@ -84,65 +84,125 @@ PMT_location_dict = {
 }
 
 # using ALL data from 4 phases, see /media/disk_o/my_analysis/medians.py
+# PMT_channel_delay_dict = {
+#     "adc_b1_ch1": np.float64(8.030119938430738),
+#     "adc_b1_ch2": np.float64(5.160596843708807),
+#     "adc_b1_ch3": np.float64(6.183129915008303),
+#     "adc_b1_ch4": np.float64(2.1006828929114034),
+#     "adc_b1_ch5": np.float64(6.2045754222843446),
+#     "adc_b1_ch6": np.float64(6.161676253769009),
+#     "adc_b1_ch7": np.float64(4.561973370592692),
+#     "adc_b1_ch8": np.float64(4.059154543523331),
+#     "adc_b1_ch9": np.float64(4.527702749808608),
+#     "adc_b1_ch10": np.float64(4.89672876798353),
+#     "adc_b1_ch11": np.float64(6.264616928546467),
+#     "adc_b1_ch12": np.float64(4.0887738673544405),
+#     "adc_b1_ch13": np.float64(3.6559960302367407),
+#     "adc_b1_ch14": np.float64(4.5739947702690955),
+#     "adc_b1_ch15": np.float64(5.575061440615521),
+#     "adc_b2_ch0": np.float64(6.316710428600398),
+#     "adc_b2_ch1": np.float64(4.6156615340751275),
+#     "adc_b2_ch2": np.float64(4.651063059501854),
+#     "adc_b2_ch3": np.float64(4.240215238749752),
+#     "adc_b2_ch4": np.float64(3.29829818445931),
+#     "adc_b2_ch5": np.float64(3.9065740208083692),
+#     "adc_b2_ch6": np.float64(6.998608781647993),
+#     "adc_b2_ch7": np.float64(5.218269533126902),
+#     "adc_b2_ch8": np.float64(1.5691269263153176),
+#     "adc_b2_ch9": np.float64(5.048373360049517),
+#     "adc_b2_ch10": np.float64(6.101505155220909),
+#     "adc_b2_ch11": np.float64(5.9255042831075135),
+#     "adc_b2_ch12": np.float64(4.576728227848958),
+#     "adc_b2_ch13": np.float64(4.806394551240132),
+#     "adc_b2_ch14": np.float64(3.4518309802066334),
+#     "adc_b3_ch0": np.float64(4.219983404983012),
+#     "adc_b3_ch1": np.float64(2.3410189582944896),
+#     "adc_b3_ch2": np.float64(4.38371641420724),
+#     "adc_b3_ch3": np.float64(6.840023772731689),
+#     "adc_b3_ch4": np.float64(2.1118156288779253),
+#     "adc_b3_ch5": np.float64(2.5750972348009955),
+#     "adc_b3_ch6": np.float64(4.730938465704396),
+#     "adc_b3_ch7": np.float64(3.9063029644947553),
+#     "adc_b3_ch8": np.float64(4.337709021825615),
+#     "adc_b3_ch9": np.float64(5.3446182004022),
+#     "adc_b3_ch10": np.float64(3.2323137947678804),
+#     "adc_b3_ch11": np.float64(4.585152794796352),
+#     "adc_b3_ch12": np.float64(3.1823386547200014),
+#     "adc_b3_ch13": np.float64(4.146583102970336),
+#     "adc_b3_ch14": np.float64(4.054654654843673),
+#     "adc_b3_ch15": np.float64(2.008745263456964),
+#     "adc_b4_ch0": np.float64(3.728169312817592),
+#     "adc_b4_ch1": np.float64(3.172271565996006),
+#     "adc_b4_ch2": np.float64(5.504018432122031),
+#     "adc_b4_ch3": np.float64(4.67892164680153),
+#     "adc_b4_ch4": np.float64(2.8893489155116834),
+#     "adc_b4_ch5": np.float64(2.8683819880358103),
+#     "adc_b4_ch6": np.float64(3.9172990994935835),
+#     "adc_b4_ch7": np.float64(4.9451057648992744),
+#     "adc_b4_ch8": np.float64(11.154814540200347),
+#     "adc_b4_ch9": np.float64(3.349086284111587),
+#     "adc_b4_ch10": np.float64(4.758447378646148),
+#     "adc_b4_ch11": np.float64(4.971188071773195),
+# }
 PMT_channel_delay_dict = {
-    "adc_b1_ch1": np.float64(8.030119938430738),
-    "adc_b1_ch2": np.float64(5.160596843708807),
-    "adc_b1_ch3": np.float64(6.183129915008303),
-    "adc_b1_ch4": np.float64(2.1006828929114034),
-    "adc_b1_ch5": np.float64(6.2045754222843446),
-    "adc_b1_ch6": np.float64(6.161676253769009),
-    "adc_b1_ch7": np.float64(4.561973370592692),
-    "adc_b1_ch8": np.float64(4.059154543523331),
-    "adc_b1_ch9": np.float64(4.527702749808608),
-    "adc_b1_ch10": np.float64(4.89672876798353),
-    "adc_b1_ch11": np.float64(6.264616928546467),
-    "adc_b1_ch12": np.float64(4.0887738673544405),
-    "adc_b1_ch13": np.float64(3.6559960302367407),
-    "adc_b1_ch14": np.float64(4.5739947702690955),
-    "adc_b1_ch15": np.float64(5.575061440615521),
-    "adc_b2_ch0": np.float64(6.316710428600398),
-    "adc_b2_ch1": np.float64(4.6156615340751275),
-    "adc_b2_ch2": np.float64(4.651063059501854),
-    "adc_b2_ch3": np.float64(4.240215238749752),
-    "adc_b2_ch4": np.float64(3.29829818445931),
-    "adc_b2_ch5": np.float64(3.9065740208083692),
-    "adc_b2_ch6": np.float64(6.998608781647993),
-    "adc_b2_ch7": np.float64(5.218269533126902),
-    "adc_b2_ch8": np.float64(1.5691269263153176),
-    "adc_b2_ch9": np.float64(5.048373360049517),
-    "adc_b2_ch10": np.float64(6.101505155220909),
-    "adc_b2_ch11": np.float64(5.9255042831075135),
-    "adc_b2_ch12": np.float64(4.576728227848958),
-    "adc_b2_ch13": np.float64(4.806394551240132),
-    "adc_b2_ch14": np.float64(3.4518309802066334),
-    "adc_b3_ch0": np.float64(4.219983404983012),
-    "adc_b3_ch1": np.float64(2.3410189582944896),
-    "adc_b3_ch2": np.float64(4.38371641420724),
-    "adc_b3_ch3": np.float64(6.840023772731689),
-    "adc_b3_ch4": np.float64(2.1118156288779253),
-    "adc_b3_ch5": np.float64(2.5750972348009955),
-    "adc_b3_ch6": np.float64(4.730938465704396),
-    "adc_b3_ch7": np.float64(3.9063029644947553),
-    "adc_b3_ch8": np.float64(4.337709021825615),
-    "adc_b3_ch9": np.float64(5.3446182004022),
-    "adc_b3_ch10": np.float64(3.2323137947678804),
-    "adc_b3_ch11": np.float64(4.585152794796352),
-    "adc_b3_ch12": np.float64(3.1823386547200014),
-    "adc_b3_ch13": np.float64(4.146583102970336),
-    "adc_b3_ch14": np.float64(4.054654654843673),
-    "adc_b3_ch15": np.float64(2.008745263456964),
-    "adc_b4_ch0": np.float64(3.728169312817592),
-    "adc_b4_ch1": np.float64(3.172271565996006),
-    "adc_b4_ch2": np.float64(5.504018432122031),
-    "adc_b4_ch3": np.float64(4.67892164680153),
-    "adc_b4_ch4": np.float64(2.8893489155116834),
-    "adc_b4_ch5": np.float64(2.8683819880358103),
-    "adc_b4_ch6": np.float64(3.9172990994935835),
-    "adc_b4_ch7": np.float64(4.9451057648992744),
-    "adc_b4_ch8": np.float64(11.154814540200347),
-    "adc_b4_ch9": np.float64(3.349086284111587),
-    "adc_b4_ch10": np.float64(4.758447378646148),
-    "adc_b4_ch11": np.float64(4.971188071773195),
+    "adc_b1_ch1": np.float64(1.0211744381089476),
+    "adc_b1_ch2": np.float64(3.803536405528817),
+    "adc_b1_ch3": np.float64(4.816411066307445),
+    "adc_b1_ch4": np.float64(0.6193847551627432),
+    "adc_b1_ch5": np.float64(4.635112287600739),
+    "adc_b1_ch6": np.float64(4.756969123683583),
+    "adc_b1_ch7": np.float64(3.295062163112044),
+    "adc_b1_ch8": np.float64(2.7887379301879167),
+    "adc_b1_ch9": np.float64(3.6017375458048733),
+    "adc_b1_ch10": np.float64(4.209549076904713),
+    "adc_b1_ch11": np.float64(5.0754560196043315),
+    "adc_b1_ch12": np.float64(2.5681392266603633),
+    "adc_b1_ch13": np.float64(2.5458820435829064),
+    "adc_b1_ch14": np.float64(3.391507676637081),
+    "adc_b1_ch15": np.float64(4.247887581944376),
+    "adc_b2_ch0": np.float64(5.0361428107884),
+    "adc_b2_ch1": np.float64(3.5275556662494503),
+    "adc_b2_ch2": np.float64(3.8343425735251886),
+    "adc_b2_ch3": np.float64(3.0551557307539454),
+    "adc_b2_ch4": np.float64(1.9356440342982673),
+    "adc_b2_ch5": np.float64(2.6212142475072677),
+    "adc_b2_ch6": np.float64(5.9220512037766),
+    "adc_b2_ch7": np.float64(4.136027879518686),
+    "adc_b2_ch8": np.float64(0.7486842013577144),
+    "adc_b2_ch9": np.float64(4.055283738274365),
+    "adc_b2_ch10": np.float64(4.843713540805526),
+    "adc_b2_ch11": np.float64(4.3796015702769715),
+    "adc_b2_ch12": np.float64(3.1962951597174873),
+    "adc_b2_ch13": np.float64(3.6512165466621984),
+    "adc_b2_ch14": np.float64(2.3569460756383833),
+    "adc_b3_ch0": np.float64(3.6671043312680047),
+    "adc_b3_ch1": np.float64(1.8365771110283582),
+    "adc_b3_ch2": np.float64(4.251500439012001),
+    "adc_b3_ch3": np.float64(6.913629071292966),
+    "adc_b3_ch4": np.float64(1.4004316462576094),
+    "adc_b3_ch5": np.float64(1.9891596118248724),
+    "adc_b3_ch6": np.float64(4.560482558547185),
+    "adc_b3_ch7": np.float64(3.6410986360349145),
+    "adc_b3_ch8": np.float64(3.423371201008272),
+    "adc_b3_ch9": np.float64(5.157732145850491),
+    "adc_b3_ch10": np.float64(2.9996230186799298),
+    "adc_b3_ch11": np.float64(3.990100536262517),
+    "adc_b3_ch12": np.float64(2.6741284939919145),
+    "adc_b3_ch13": np.float64(3.609122818417561),
+    "adc_b3_ch14": np.float64(3.9072421230135106),
+    "adc_b3_ch15": np.float64(1.3570921414719277),
+    "adc_b4_ch0": np.float64(3.5789606695594984),
+    "adc_b4_ch1": np.float64(2.971517103641033),
+    "adc_b4_ch2": np.float64(5.516724631660644),
+    "adc_b4_ch3": np.float64(4.305328702876725),
+    "adc_b4_ch4": np.float64(2.7917000452115617),
+    "adc_b4_ch5": np.float64(2.609695937804127),
+    "adc_b4_ch6": np.float64(3.295418410414862),
+    "adc_b4_ch7": np.float64(4.625765355978418),
+    "adc_b4_ch8": np.float64(10.951236980813379),
+    "adc_b4_ch9": np.float64(3.164976834647275),
+    "adc_b4_ch10": np.float64(4.375403561315023),
+    "adc_b4_ch11": np.float64(4.616013355376873),
 }
 
 
@@ -188,7 +248,7 @@ def base_and_flip(waveform):
     return positive_waveform
 
 
-def nn_is_dumb(hitnet_inp, chargenet_inp):
+def nn_is_dumb(hitnet_inp, all_chargenet_inp, per_chargenet_inp):
     """Silly NN is a mere computer and thinks all hit times should begin at 60ns. Take the
     min PMT hit time and shift it to 60, shift everything else by that same factor as well.
     However, early dark counts could interfere. So, find median hit time and look behind 20ns
@@ -202,20 +262,22 @@ def nn_is_dumb(hitnet_inp, chargenet_inp):
         if (hitnet_inp[3][i] < min_hit_time) or (hitnet_inp[3][i] > max_hit_time)
     ]
 
-    # first make the easy changes to chargenet_inp
+    # first make the easy changes to all_chargenet_inp
     for idx in sorted(remove_these, reverse=True):
-        del chargenet_inp[0][idx]  # delete dark hit charge
-    chargenet_inp[0] = np.sum(chargenet_inp[0])  # reformulate as sum
-    chargenet_inp[1] -= len(remove_these)  # subtract dark hits
+        del all_chargenet_inp[0][idx]  # delete dark hit charge
+    all_chargenet_inp[0] = np.sum(all_chargenet_inp[0])  # reformulate as sum
+    all_chargenet_inp[1] -= len(remove_these)  # subtract dark hits
 
     # now change hitnet_inp
     for idx in sorted(remove_these, reverse=True):
         for sublist in hitnet_inp:
             del sublist[idx]  # delete every entry for dark count
+        for sublist in per_chargenet_inp:  # same for this too
+            del sublist[idx]
 
     hit_time_shift = 60 - min(hitnet_inp[3])
     hitnet_inp[3] = [hit_time + hit_time_shift for hit_time in hitnet_inp[3]]
-    return hitnet_inp, chargenet_inp
+    return hitnet_inp, all_chargenet_inp, per_chargenet_inp
 
 
 def weighted_average_hit_time(waveform, window_size=10):
@@ -250,32 +312,22 @@ def weighted_average_hit_time(waveform, window_size=10):
     return (numerator / denominator) * 2
 
 
-def constant_fraction_time(signal, fraction=0.5, time_step=1.0):
-    """
-    Estimate the pulse time using Constant Fraction Discrimination (CFD).
-
-    Parameters:
-        signal (list or np.array): The waveform values.
-        fraction (float): Fraction of max amplitude for threshold (e.g., 0.5 for 50%).
-        time_step (float): Time difference between samples (default 1.0, adjust for real data).
-
-    Returns:
-        Estimated time when the signal crosses 'fraction' of its max.
-    """
-    signal = np.array(base_and_flip(signal))
-    max_val = np.max(signal)
+def constant_fraction_time(waveform, fraction=0.5, time_step=1.0):
+    """Do leading edge CFD to find when pulse height is 50% of maximum."""
+    waveform = np.array(base_and_flip(waveform))
+    max_val = np.max(waveform)
     threshold = fraction * max_val
 
     # Find where signal crosses threshold
-    for i in range(1, len(signal)):
-        if signal[i - 1] < threshold <= signal[i]:
-            # Linear interpolation to estimate more precise crossing time
+    for i in range(1, len(waveform)):
+        if waveform[i - 1] < threshold <= waveform[i]:
+            # linear interpolation to estimate crossing time
             t0 = (i - 1) * time_step
-            y0 = signal[i - 1]
-            y1 = signal[i]
+            y0 = waveform[i - 1]
+            y1 = waveform[i]
             crossing_time = t0 + time_step * (threshold - y0) / (y1 - y0)
             return crossing_time
-    return None  # No crossing found
+    return None  # no crossing found
 
 
 def get_channel_charge(waveform):
@@ -367,9 +419,13 @@ def top_paddle_event_list(traces) -> list[int]:
 
 def get_all_sensor_input(fname: str, peak_method: str):
     """Takes in a file path and a peak_method, which is either CFD or weighted avg.
-    Then the information for all-sensor chargenet AND all-sensor hitnet is returned."""
+    Then the information for all-sensor chargenet AND all-sensor hitnet is returned.
+    "all" refers to all-sensor and "per" refers to per-sensor. I tried to remember to
+    use "total" when talking about everything but sometimes abuse notation and use all
+    """
 
     all_events = []
+    per_events = []
     bottom_paddle_tags_list = []
 
     traces = get_1t_info(fname)[0]
@@ -380,7 +436,8 @@ def get_all_sensor_input(fname: str, peak_method: str):
     for i in top_paddle_events:
         # print("starting new TP event")
         hitnet_input = [[], [], [], [], []]
-        chargenet_input = []
+        all_chargenet_input = []
+        per_chargenet_input = [[], [], [], []]
         temp_chargenet = []
         # sum_of_charges_of_all_hits = 0
         num_of_hits = 0
@@ -414,10 +471,18 @@ def get_all_sensor_input(fname: str, peak_method: str):
             # if not is_pulse(daisy_corrected_waveform): #range_min=750):
             #     continue
 
-            # gets waveform charge and checks if it's a pulse
+            # gets waveform charge and checks if it's a pulse. also add to per_chargenet
+            # here since we need everything regardless of if pulse or not
+
             waveform_charge = get_channel_charge(daisy_corrected_waveform)
-            if waveform_charge < 15:
+            per_chargenet_input[0].append(PMT_location_dict[key][0])
+            per_chargenet_input[1].append(PMT_location_dict[key][1])
+            per_chargenet_input[2].append(PMT_location_dict[key][2])
+            if waveform_charge < 15:  # this is equivalent to is_pulse
+                # assume this is dark count and zero, so any charge not due to muon
+                per_chargenet_input[3].append(0)
                 continue
+            per_chargenet_input[3].append(waveform_charge)
 
             print("hit for", key)
             # hitnet input as we go
@@ -444,27 +509,49 @@ def get_all_sensor_input(fname: str, peak_method: str):
             num_of_hits += 1
 
         # chargenet input
-        chargenet_input.append(temp_chargenet)
-        chargenet_input.append(num_of_hits)
+        all_chargenet_input.append(temp_chargenet)
+        all_chargenet_input.append(num_of_hits)
 
         # reassign to please the picky NN
-        hitnet_input, chargenet_input = nn_is_dumb(hitnet_input, chargenet_input)
-        event = {
+        hitnet_input, all_chargenet_input, per_chargenet_input = nn_is_dumb(
+            hitnet_input, all_chargenet_input, per_chargenet_input
+        )
+        all_event = {
             "hits": np.stack(hitnet_input, axis=1),
-            "total_charge": np.stack(chargenet_input),
+            "total_charge": np.stack(all_chargenet_input),
+        }
+        per_event = {
+            "hits": np.stack(hitnet_input, axis=1),
+            "total_charge": np.stack(per_chargenet_input, axis=1),
         }
 
         # only append if there's anything to reco
         if num_of_hits > 0:
-            all_events.append(event)
+            all_events.append(all_event)
+            per_events.append(per_event)
             bottom_paddle_tags_list.append(bottom_paddle_event_tag)
-            print("hitnet and chargent input")
-            print(hitnet_input, "\n", chargenet_input)
-            print("bp tag", bottom_paddle_event_tag)
-    return all_events, bottom_paddle_tags_list
+            # print("hitnet and chargent inputs:\n")
+            # print(hitnet_input)
+            # print(all_chargenet_input)
+            # print(per_chargenet_input)
+            # print("bp tag", bottom_paddle_event_tag)
+            print("\n=== HitNet Input ===")
+            for i, sublist in enumerate(hitnet_input):
+                print(f"  Sublist {i}: {sublist}")
+
+            print("\n=== All ChargeNet Input ===")
+            for i, sublist in enumerate(all_chargenet_input):
+                print(f"  Sublist {i}: {sublist}")
+
+            print("\n=== Per-Hit ChargeNet Input ===")
+            for i, sublist in enumerate(per_chargenet_input):
+                print(f"  Sublist {i}: {sublist}")
+
+            print(f"\n=== Bottom Paddle Event Tag ===\n  {bottom_paddle_event_tag}")
+
+    return all_events, per_events, bottom_paddle_tags_list
 
 
-# num_files = 100
 # phase_directory = "/media/disk_d/WbLS-DATA/raw_root/phase3/muon/" # Oct 31, 2024
 phase_directory = "/media/disk_e/WbLS-DATA/raw_root/phase3/muon/"  # Nov 13, 2024
 # phase_directory = "/media/disk_a/WbLS-DATA/raw_root/phase6/muon/" # Jan 07, 2025
@@ -477,35 +564,45 @@ file_paths_for_ch_delays = [
     if os.path.isfile(os.path.join(phase_directory, f))
 ]
 
-# files_used = 0
-all_events_for_phase = []
-all_bottom_paddle_tags_for_phase = []
-for fileee in file_paths_for_ch_delays:  # [:num_files]:
+total_allsensor_events_for_phase = []
+total_persensor_events_for_phase = []
+total_bottom_paddle_tags_for_phase = []
+for fileee in file_paths_for_ch_delays:
     if "water" not in fileee:
         continue  # network was trained on water
-    # if files_used > 100:
-    #     break
     print("starting new file", fileee)
     try:
-        all_eventsy, bottom_paddle_tags_listy = get_all_sensor_input(fileee, "CFD")
-        all_events_for_phase.extend(all_eventsy)
-        all_bottom_paddle_tags_for_phase.extend(bottom_paddle_tags_listy)
-        # files_used += 1
+        allsensor_events, persensor_events, bottom_paddle_tags = get_all_sensor_input(
+            fileee, "W_avg"
+        )  # change peak method HERE
+        total_allsensor_events_for_phase.extend(allsensor_events)
+        total_persensor_events_for_phase.extend(persensor_events)
+        total_bottom_paddle_tags_for_phase.extend(bottom_paddle_tags)
     except Exception as e:
         print(f"Skipped {fileee} due to error: {e}")
 
 data_to_save = {
-    "all_events_for_phase": all_events_for_phase,
-    "all_bottom_paddle_tags_for_phase": all_bottom_paddle_tags_for_phase,
+    "all_events_for_phase": total_allsensor_events_for_phase,
+    "per_events_for_phase": total_persensor_events_for_phase,
+    "all_bottom_paddle_tags_for_phase": total_bottom_paddle_tags_for_phase,
 }
 
-print("completed:", len(all_events_for_phase), len(all_bottom_paddle_tags_for_phase))
+print(
+    "completed:",
+    len(total_allsensor_events_for_phase),
+    len(total_persensor_events_for_phase),
+    len(total_bottom_paddle_tags_for_phase),
+)
+
+### THINGS THE USER CAN CHANGE:
+# peak method, CFD or Weight
+# output pickle file name
+# Data for all-sensor and per-sensor is in same file. Make sure you are using numpy 1.24.4 to match the cluster
+# scp /media/disk_o/my_pickles/07_07_25_processed_data_disk_e_phase_3_allsensor_CFD_1.pkl dzc5938@submit.hpc.psu.edu:/storage/group/dfc13/default/dcolson/my_pickles
+
+outfile_name = "/media/disk_o/my_pickles/07_09_25_processed_data_disk_e_phase_3_Weight_1.pkl"
 with open(
-    f"/media/disk_o/my_pickles/07_07_25_processed_data_disk_e_phase_3_allsensor_CFD_1.pkl",
+    outfile_name,
     "wb",
 ) as f:
     pickle.dump(data_to_save, f)
-
-# scp /path/to/local/file username@cluster.server.edu:/path/to/cluster/destination/
-# scp /path/to/local/file username@cluster.server.edu:/path/to/cluster/destination/
-# scp /media/disk_o/my_pickles/07_07_25_processed_data_disk_e_phase_3_allsensor_CFD_1.pkl dzc5938@submit.hpc.psu.edu:/storage/group/dfc13/default/dcolson/my_pickles
