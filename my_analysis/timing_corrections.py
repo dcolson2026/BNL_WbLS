@@ -465,7 +465,7 @@ def alpha_event_list(traces) -> list[int]:
                 waveform_daisy_correction(uncorrected_waveform, board_num)
             )
         summed_waveform = np.sum(corrected_waveforms_per_event, axis=0)
-        peak_sample_time_ns = np.argmin(summed_waveform) * 2  # converts ADU to mV
+        peak_sample_time_ns = np.argmin(summed_waveform) * 2
         # rough estimate of time range
         if 550 < peak_sample_time_ns < 750 and i in alpha_PMT_events:
             twice_checked_alpha_event_index_list.append(i)

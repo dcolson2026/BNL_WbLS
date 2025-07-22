@@ -1,5 +1,6 @@
 import os
 import pickle
+import traceback
 import numpy as np
 import uproot
 import time
@@ -21,6 +22,11 @@ IRRELEVANT_CHANNELS = [
     "adc_b4_ch13",
     "adc_b4_ch14",
     "adc_b4_ch15",
+    "adc_b5_ch0",
+    "adc_b5_ch33",
+    "adc_b5_ch34",
+    "adc_b5_ch35",
+    "adc_b5_ch39",
 ]
 PMT_location_dict = {
     "adc_b1_ch1": (381.0, -171.45, -677.1),
@@ -82,11 +88,87 @@ PMT_location_dict = {
     "adc_b4_ch10": (-376.8561, 376.8561, -41.1607),
     "adc_b4_ch11": (-376.8561, 376.8561, 128.7018),
 }
-HODOSCOPE_PMTs = {
-    'top_x': {'adc_b5_ch1', 'adc_b5_ch2', 'adc_b5_ch3', 'adc_b5_ch4', 'adc_b5_ch5', 'adc_b5_ch6', 'adc_b5_ch7', 'adc_b5_ch8'},
-    'top_y': {'adc_b5_ch9', 'adc_b5_ch10', 'adc_b5_ch11', 'adc_b5_ch12', 'adc_b5_ch13', 'adc_b5_ch14', 'adc_b5_ch15', 'adc_b5_ch16'},
-    'bot_x': {'adc_b5_ch17', 'adc_b5_ch18', 'adc_b5_ch19', 'adc_b5_ch20', 'adc_b5_ch21', 'adc_b5_ch22', 'adc_b5_ch23', 'adc_b5_ch24'},
-    'bot_y': {'adc_b5_ch25', 'adc_b5_ch26', 'adc_b5_ch27', 'adc_b5_ch28', 'adc_b5_ch29', 'adc_b5_ch30', 'adc_b5_ch31', 'adc_b5_ch32'}
+# tagging lists:
+HODOSCOPE_PMTs = [
+    "adc_b5_ch1",
+    "adc_b5_ch2",
+    "adc_b5_ch3",
+    "adc_b5_ch4",
+    "adc_b5_ch5",
+    "adc_b5_ch6",
+    "adc_b5_ch7",
+    "adc_b5_ch8",
+    "adc_b5_ch9",
+    "adc_b5_ch10",
+    "adc_b5_ch11",
+    "adc_b5_ch12",
+    "adc_b5_ch13",
+    "adc_b5_ch14",
+    "adc_b5_ch15",
+    "adc_b5_ch16",
+    "adc_b5_ch17",
+    "adc_b5_ch18",
+    "adc_b5_ch19",
+    "adc_b5_ch20",
+    "adc_b5_ch21",
+    "adc_b5_ch22",
+    "adc_b5_ch23",
+    "adc_b5_ch24",
+    "adc_b5_ch25",
+    "adc_b5_ch26",
+    "adc_b5_ch27",
+    "adc_b5_ch28",
+    "adc_b5_ch29",
+    "adc_b5_ch30",
+    "adc_b5_ch31",
+    "adc_b5_ch32",
+]
+TP_PMTs = ["adc_b4_ch13", "adc_b4_ch14"]
+TP_supp_PMTs = ["adc_b5_ch36", "adc_b5_ch37", "adc_b5_ch38"]
+BP_PMTs = ["adc_b1_ch0", "adc_b2_ch15"]
+
+# idk yet
+HODOSCOPE_PMTs_dict = {
+    "top_x": {
+        "adc_b5_ch1",
+        "adc_b5_ch2",
+        "adc_b5_ch3",
+        "adc_b5_ch4",
+        "adc_b5_ch5",
+        "adc_b5_ch6",
+        "adc_b5_ch7",
+        "adc_b5_ch8",
+    },
+    "top_y": {
+        "adc_b5_ch9",
+        "adc_b5_ch10",
+        "adc_b5_ch11",
+        "adc_b5_ch12",
+        "adc_b5_ch13",
+        "adc_b5_ch14",
+        "adc_b5_ch15",
+        "adc_b5_ch16",
+    },
+    "bot_x": {
+        "adc_b5_ch17",
+        "adc_b5_ch18",
+        "adc_b5_ch19",
+        "adc_b5_ch20",
+        "adc_b5_ch21",
+        "adc_b5_ch22",
+        "adc_b5_ch23",
+        "adc_b5_ch24",
+    },
+    "bot_y": {
+        "adc_b5_ch25",
+        "adc_b5_ch26",
+        "adc_b5_ch27",
+        "adc_b5_ch28",
+        "adc_b5_ch29",
+        "adc_b5_ch30",
+        "adc_b5_ch31",
+        "adc_b5_ch32",
+    },
 }
 
 # using ALL data from 4 phases, see /media/disk_o/my_analysis/medians.py
@@ -251,6 +333,127 @@ def get_1t_info(fname: str):
     )
 
 
+def need_event_mismatch_correction(fname: str):
+    """This function breaks at year 2100. But so does this file convention naming anyways."""
+    temp1 = fname.split("/")[-1]  # gets the actual fname from the path
+    temp2 = temp1.split("_")
+    date_string = temp2[2][:6]
+    if 241017 <= int(date_string) <= 250329:
+        print("event mismatch will be done for " + fname)
+        return True
+    return False
+
+
+def write_corrected_root(
+    outfname,
+    traces,
+    event_ttt1,
+    event_ttt2,
+    event_ttt3,
+    event_ttt4,
+    event_ttt5,
+    event_id,
+    event_sanity,
+    daqkeys,
+    run_info,
+    event_ttt1_good_final,
+    event_ttt5_good_final,
+):
+
+    new_daq = {}
+    for key in daqkeys:
+        if "adc_b5" in key:
+            new_daq[key] = traces[key][event_ttt5_good_final]
+        elif "adc" in key:
+            new_daq[key] = traces[key][event_ttt1_good_final]
+    new_daq["event_ttt_5"] = event_ttt5[event_ttt5_good_final]
+    new_daq["event_ttt_4"] = event_ttt4[event_ttt1_good_final]
+    new_daq["event_ttt_3"] = event_ttt3[event_ttt1_good_final]
+    new_daq["event_ttt_2"] = event_ttt2[event_ttt1_good_final]
+    new_daq["event_ttt_1"] = event_ttt1[event_ttt1_good_final]
+    new_daq["event_id"] = event_id[event_ttt1_good_final]
+    new_daq["event_sanity"] = event_sanity[event_ttt1_good_final]
+
+    output_file = uproot.recreate(outfname)
+    output_file["daq"] = {branch: new_daq[branch] for branch in new_daq}
+
+    if run_info is not None:
+        data = run_info.arrays(library="np")
+        output_file["run_info"] = {branch: data[branch] for branch in data}
+    output_file.close()
+
+
+def correct_times(event_ttt1, event_ttt5, event_id):
+    """Correct the events by comparing closest in 1 and 5 board"""
+    array_idx = sorted(range(len(event_id)), key=lambda i: event_id[i])
+
+    event_ttt5_good = event_ttt5[array_idx]
+    event_ttt1_good = event_ttt1[array_idx]
+
+    event_ttt5_good_idx = []
+    event_ttt1_good_idx = []
+
+    window_size = 3
+
+    for i, val1 in enumerate(event_ttt1_good):
+        # Define the search window (max 3 elements before and after in event_ttt5_good)
+        start_idx = max(i - window_size, 0)
+        end_idx = min(i + window_size + 1, len(event_ttt5_good))
+
+        # Find the index of the closest element in event_ttt5_good within the window
+        local_window = event_ttt5_good[start_idx:end_idx]
+        closest_idx = (
+            np.argmin(np.abs(local_window - val1)) + start_idx
+        )  # Add start_idx to get global index
+
+        if -17 < (event_ttt5_good[closest_idx] - val1) < -13:
+            event_ttt1_good_idx.append(i)
+            event_ttt5_good_idx.append(closest_idx)
+
+    event_ttt1_good_final = np.array(array_idx)[event_ttt1_good_idx]
+    event_ttt5_good_final = np.array(array_idx)[event_ttt5_good_idx]
+
+    return event_ttt1_good_final, event_ttt5_good_final
+
+
+def quickly_correct_file(fname: str, outfname: str) -> str:
+    """Does only event mismatch correction, and only if needed."""
+    if not need_event_mismatch_correction(fname):
+        return fname
+    (
+        file_traces,
+        event_ttt1,
+        event_ttt2,
+        event_ttt3,
+        event_ttt4,
+        event_ttt5,
+        file_event_ids,
+        file_event_sanity,
+        file_daqkeys,
+        file_run_info,
+    ) = get_1t_info(fname)
+    mismatch_corrected_event_ttt1, mismatch_corrected_event_ttt5 = correct_times(
+        event_ttt1, event_ttt5, file_event_ids
+    )
+    write_corrected_root(
+        outfname,
+        file_traces,
+        event_ttt1,
+        event_ttt2,
+        event_ttt3,
+        event_ttt4,
+        event_ttt5,
+        file_event_ids,
+        file_event_sanity,
+        file_daqkeys,
+        file_run_info,
+        mismatch_corrected_event_ttt1,
+        mismatch_corrected_event_ttt5,
+    )
+    print("ROOT file corrected for " + fname)
+    return outfname
+
+
 def base_and_flip(waveform):
     """Subtract baseline and reflect over x axis"""
     positive_waveform = (waveform - np.median(waveform)) * (-1)
@@ -262,6 +465,7 @@ def nn_is_dumb(hitnet_inp, all_chargenet_inp, per_chargenet_inp):
     min PMT hit time and shift it to 60, shift everything else by that same factor as well.
     However, early dark counts could interfere. So, find median hit time and look behind 20ns
     and forward 20 ns (40ns window, found from plot of summed waveform cumsum)"""
+    # print("init hitnet[3]", hitnet_inp[3])
     median_hit_time = np.median(hitnet_inp[3])
     min_hit_time = median_hit_time - 20
     max_hit_time = median_hit_time + 20
@@ -270,7 +474,7 @@ def nn_is_dumb(hitnet_inp, all_chargenet_inp, per_chargenet_inp):
         for i in range(len(hitnet_inp[3]))
         if (hitnet_inp[3][i] < min_hit_time) or (hitnet_inp[3][i] > max_hit_time)
     ]
-
+    # print(remove_these)
     # first make the easy changes to all_chargenet_inp and per_chargenet_inp
     for idx in sorted(remove_these, reverse=True):
         per_chargenet_inp[3][idx] = 0
@@ -286,6 +490,7 @@ def nn_is_dumb(hitnet_inp, all_chargenet_inp, per_chargenet_inp):
         # for sublist in per_chargenet_inp:  # same for this too
         #     del sublist[idx]
 
+    # print("final hitnet[3]", hitnet_inp[3])
     hit_time_shift = 60 - min(hitnet_inp[3])
     hitnet_inp[3] = [hit_time + hit_time_shift for hit_time in hitnet_inp[3]]
     print("nn_is_dumb", all_chargenet_inp)
@@ -353,9 +558,11 @@ def get_channel_charge(waveform):
 
 
 def waveform_daisy_correction(waveform, boardID):
-    if (boardID < 1) or (boardID > 4):
+    if (boardID < 1) or (boardID > 5):
         print("Bad BoardID")
         return False
+    elif boardID == 5:
+        return waveform
     elif boardID != 1:
         return waveform[24 * (4 - boardID) : -24 * (boardID - 1)]
     else:
@@ -429,53 +636,103 @@ def top_paddle_event_list(traces) -> list[int]:
     return twice_checked_top_paddle_event_index_list
 
 
+def b4_ch12_detections(traces) -> list[int]:
+    """Returns a list of the event indices where the alpha PMT goes off. The waveform is not altered at all prior to this.
+    In other words, we are purely looking at the shape of the waveform."""
+    b4_ch12_detection_list = []
+    waveforms_list = traces["adc_b4_ch12"]
+    for i, waveform in enumerate(waveforms_list):
+        if is_pulse(waveform):  # this is arbitrary, and hopefully this is sufficient
+            b4_ch12_detection_list.append(i)
+    return b4_ch12_detection_list
+
+
+def alpha_event_list(traces) -> list[int]:
+    """Returns a list of event indices that correspond to alpha particle events.
+    This means b4_ch12 has a signal and the superposition of signals for that event
+    lies in the time range for alpha events."""
+
+    twice_checked_alpha_event_index_list = []
+    num_events = len(traces["adc_b2_ch1"])  # pick arbitrary PMT, all same length
+    alpha_PMT_events = b4_ch12_detections(traces)
+
+    for i in range(num_events):
+        corrected_waveforms_per_event = []
+        # waveform loop to get the i_th waveform for each PMT
+        for key in traces.keys():
+            if ("b5" in key) or (key in IRRELEVANT_CHANNELS):  # Adam said disregard
+                continue
+            board_num = int(key[5])
+            uncorrected_waveform = traces[key][i]
+            corrected_waveforms_per_event.append(
+                waveform_daisy_correction(uncorrected_waveform, board_num)
+            )
+        summed_waveform = np.sum(corrected_waveforms_per_event, axis=0)
+        peak_sample_time_ns = np.argmin(summed_waveform) * 2
+        # rough estimate of time range
+        if 550 < peak_sample_time_ns < 750 and i in alpha_PMT_events:
+            twice_checked_alpha_event_index_list.append(i)
+    return twice_checked_alpha_event_index_list
+
+
 def get_all_sensor_input(fname: str, peak_method: str):
     """Takes in a file path and a peak_method, which is either CFD or weighted avg.
     Then the information for all-sensor chargenet AND all-sensor hitnet is returned.
     "all" refers to all-sensor and "per" refers to per-sensor. I tried to remember to
-    use "total" when talking about everything but sometimes abuse notation and use all
+    use "total" when talking about everything and "all" when referring to sensor type. 
+    Now added per-sensor.
     """
 
     all_events = []
     per_events = []
-    bottom_paddle_tags_list = []
+    event_tagging_list = []
 
     traces = get_1t_info(fname)[0]
-    top_paddle_events = top_paddle_event_list(traces)
-    bottom_paddle_1, bottom_paddle_2 = b1_ch0_or_b2_ch15_detections(traces)
-    print("BP detections:", bottom_paddle_1, bottom_paddle_2)
 
-    for i in top_paddle_events:
-        # print("starting new TP event")
+    alpha_events = alpha_event_list(traces)
+    num_events = len(traces["adc_b2_ch1"])  # pick arbitrary PMT, all same length
+
+    for i in range(num_events):
+
+        # Skip over all alpha events, these are irrelevant ones
+        if i in alpha_events:
+            continue
+
+        # instantiate some network variables
         hitnet_input = [[], [], [], [], []]
         all_chargenet_input = []
         per_chargenet_input = [[], [], [], []]
         temp_chargenet = []
-        # sum_of_charges_of_all_hits = 0
         num_of_hits = 0
 
-        # Could have just gotten this intersection with TP events I guess
-        bottom_paddle_event_tag = 0
-        if (i in bottom_paddle_1) and (i in bottom_paddle_2):
-            bottom_paddle_event_tag = 3
-        elif i in bottom_paddle_1:
-            bottom_paddle_event_tag = 1
-        elif i in bottom_paddle_2:
-            bottom_paddle_event_tag = 2
-        if bottom_paddle_event_tag == 0:  # skip, can't do true comparison
-            continue
+        event_tagging_dict = {"TP": [], "TP_supp": [], "hodo": [], "BP": []}
 
         # waveform loop to get the i_th waveform for each PMT
         for key in traces.keys():
-            if ("b5" in key) or (key in IRRELEVANT_CHANNELS):  # disregard
-                continue
+
+            # get only necessary info to do tagging
             uncorrected_waveform = traces[key][i]
             board_num = int(key[5])
-
             # perform daisy correction and change to ns (500MHz sampling)
             daisy_corrected_waveform = waveform_daisy_correction(
                 uncorrected_waveform, board_num
             )
+            waveform_charge = get_channel_charge(daisy_corrected_waveform)
+
+            # do tagging
+            if waveform_charge > 15:
+                if key in TP_PMTs:
+                    event_tagging_dict["TP"].append(key)
+                elif key in TP_supp_PMTs:
+                    event_tagging_dict["TP_supp"].append(key)
+                elif key in HODOSCOPE_PMTs:
+                    event_tagging_dict["hodo"].append(key)
+                elif key in BP_PMTs:
+                    event_tagging_dict["BP"].append(key)
+
+            # continue, we only want the 58 PMTs added to network
+            if ("b5" in key) or (key in IRRELEVANT_CHANNELS):
+                continue
 
             # skip if not a pulse
             # restricting the window could help, but really that's the job of the twice
@@ -486,7 +743,6 @@ def get_all_sensor_input(fname: str, peak_method: str):
             # gets waveform charge and checks if it's a pulse. also add to per_chargenet
             # here since we need everything regardless of if pulse or not
 
-            waveform_charge = get_channel_charge(daisy_corrected_waveform)
             per_chargenet_input[0].append(PMT_location_dict[key][0])
             per_chargenet_input[1].append(PMT_location_dict[key][1])
             per_chargenet_input[2].append(PMT_location_dict[key][2])
@@ -494,13 +750,12 @@ def get_all_sensor_input(fname: str, peak_method: str):
                 # assume this is dark count and zero, so any charge not due to muon
                 per_chargenet_input[3].append(0)
                 continue
+            # print("hit for", key)
+
+            # add to chargenet
             per_chargenet_input[3].append(waveform_charge)
 
-            print("hit for", key)
-            # hitnet input as we go
-            hitnet_input[0].append(PMT_location_dict[key][0])
-            hitnet_input[1].append(PMT_location_dict[key][1])
-            hitnet_input[2].append(PMT_location_dict[key][2])
+            # find peak time
             if peak_method == "cfd":
                 peak_method_hit_time = constant_fraction_time(
                     daisy_corrected_waveform, fraction=0.5, time_step=2
@@ -512,64 +767,73 @@ def get_all_sensor_input(fname: str, peak_method: str):
             if peak_method_hit_time is None:
                 continue  # if peak method fails, continue
             pmt_hit_time = peak_method_hit_time - PMT_channel_delay_dict[key]
+
+            # hitnet input consecutively so that everything is same size
+            hitnet_input[0].append(PMT_location_dict[key][0])
+            hitnet_input[1].append(PMT_location_dict[key][1])
+            hitnet_input[2].append(PMT_location_dict[key][2])
             hitnet_input[3].append(pmt_hit_time)
             hitnet_input[4].append(1)
-            if key == "adc_b3_ch11":
-                print("b3_ch11 yuh", pmt_hit_time)  ###
 
             # chargenet values to later input
             temp_chargenet.append(waveform_charge)
             # sum_of_charges_of_all_hits += waveform_charge
             num_of_hits += 1
 
+        # Check if we have any hits AND check if charge is reasonable
+        # only append if there's anything to reco
+        # also, we need hits greater than 3 because firstly there isn't much to reco with 2
+        # hits and secondly the median of 2 values is an in between, and so the "not dark count" window
+        # fails in the nn_is_dumb function (min() of empty list)
+        if num_of_hits < 3:
+            continue  # to next event
+
+        # if sum(event_tagging_dict.values(), []) == []: # could use truthy falsey to be cool
+        #     continue # we don't want events without ANY tagging...
+        if len(event_tagging_dict["hodo"]) < 2:
+            continue
+        print(event_tagging_dict)
         # chargenet input
         all_chargenet_input.append(temp_chargenet)
         all_chargenet_input.append(num_of_hits)
 
-        # reassign to please the picky NN
-        hitnet_input, all_chargenet_input, per_chargenet_input = nn_is_dumb(
-            hitnet_input, all_chargenet_input, per_chargenet_input
-        )
-        print("min hit time", min(hitnet_input[3]))  ###
-        all_event = {
-            "hits": np.stack(hitnet_input, axis=1),
-            "total_charge": np.stack(all_chargenet_input),
-        }
-        per_event = {
-            "hits": np.stack(hitnet_input, axis=1),
-            "total_charge": np.stack(per_chargenet_input, axis=1),
-        }
-        # At this point, we have formatted everything properly for NN. We can apply
-        # some final if conditions here...
-
-        # if total charge is greater than 5800pC, meaning that on average each PMT had
-        # 100pC signal, just skip the whole event. Be conservative for best statistics
-        if all_chargenet_input[0] > 5800:
-            print("skipped, too high charge")
-            continue
-        # only append if there's anything to reco
-        if num_of_hits > 0:
+        try:
+            # reassign to please the picky NN
+            hitnet_input, all_chargenet_input, per_chargenet_input = nn_is_dumb(
+                hitnet_input, all_chargenet_input, per_chargenet_input
+            )
+            # if total charge is greater than 5800pC, meaning that on average each PMT had
+            # 100pC signal, just skip the whole event. Be conservative for best statistics
+            if all_chargenet_input[0] > 5800:
+                print("skipped, too high charge")
+                continue
+            print("min hit time", min(hitnet_input[3]))  ###
+            all_event = {
+                "hits": np.stack(hitnet_input, axis=1),
+                "total_charge": np.stack(all_chargenet_input),
+            }
+            per_event = {
+                "hits": np.stack(hitnet_input, axis=1),
+                "total_charge": np.stack(per_chargenet_input, axis=1),
+            }
+            # At this point, we have formatted everything properly for NN
             all_events.append(all_event)
             per_events.append(per_event)
-            bottom_paddle_tags_list.append(bottom_paddle_event_tag)
-            # print("\n=== HitNet Input ===")
-            # for i, sublist in enumerate(hitnet_input):
-            #     print(f"  Sublist {i}: {sublist}")
+            event_tagging_list.append(event_tagging_dict)
+        except ValueError as e:
+            # sometimes due to so few hits, all hit times are seen as dark counts. just
+            # skip these
+            if str(e) == "min() arg is an empty sequence":
+                print(f"Skipped {i} due to empty sequence error.")
 
-            # print("\n=== All ChargeNet Input ===")
-            # for i, sublist in enumerate(all_chargenet_input):
-            #     print(f"  Sublist {i}: {sublist}")
-
-            # print("\n=== Per-Hit ChargeNet Input ===")
-            # for i, sublist in enumerate(per_chargenet_input):
-            #     print(f"  Sublist {i}: {sublist}")
-
-            # print(f"\n=== Bottom Paddle Event Tag ===\n  {bottom_paddle_event_tag}")
-
-    return all_events, per_events, bottom_paddle_tags_list
+    return all_events, per_events, event_tagging_list
 
 
-phase_directory = "/media/disk_d/WbLS-DATA/raw_root/phase3/muon/" # Oct 31, 2024
+# even though I changed it to event_tagging_dict, I'd have to change the way the pickle file is saved
+# and read on PSU cluster and im too lazy to change all that, unnecessary
+
+# phase_directory = "/media/disk_d/WbLS-DATA/raw_root/phase3/muon/"  # Oct 31, 2024
+phase_directory = "/media/disk_o/my_corrected_roots/disk_d_phase3/"  # corrected
 # phase_directory = "/media/disk_e/WbLS-DATA/raw_root/phase3/muon/"  # Nov 13, 2024
 # phase_directory = "/media/disk_a/WbLS-DATA/raw_root/phase6/muon/" # Jan 07, 2025
 # phase_directory = "/media/disk_b/WbLS-DATA/raw_root/phase5/muon/" # Dec 12, 2024
@@ -581,7 +845,7 @@ file_paths_in_phase = [
     phase_directory + str(f)
     for f in os.listdir(phase_directory)
     if os.path.isfile(os.path.join(phase_directory, f))
-]
+][:50]
 print("num of files", len(file_paths_in_phase))
 
 total_allsensor_events_for_phase = []
@@ -589,18 +853,20 @@ total_persensor_events_for_phase = []
 total_bottom_paddle_tags_for_phase = []
 for f in file_paths_in_phase:
     if "water" not in f:
-    # if "wbls" not in f:
+        # if "wbls" not in f:
         continue  # network was trained on water, now trained on wbls
     print("starting new file", f)
     try:
+        # f = quickly_correct_file(f, "/media/disk_o/my_corrected_roots/disk_d_phase3/corrected_" + f.split("/")[-1])
         allsensor_events, persensor_events, bottom_paddle_tags = get_all_sensor_input(
-            f, "weight"
+            f, "cfd"
         )  # change peak method HERE
         total_allsensor_events_for_phase.extend(allsensor_events)
         total_persensor_events_for_phase.extend(persensor_events)
         total_bottom_paddle_tags_for_phase.extend(bottom_paddle_tags)
     except Exception as e:
         print(f"Skipped {f} due to error: {e}")
+        traceback.print_exc()
 
 data_to_save = {
     "all_events_for_phase": total_allsensor_events_for_phase,
@@ -619,13 +885,15 @@ print(
 # source /media/disk_o/cluster_match/bin/activate !!!!!!
 # phase of data
 # peak method, CFD or Weight
-    # CFD fraction
+# CFD fraction
 # output pickle file name
+# need to correct files or not
+# amount of files to look at
 ###
 # Data for all-sensor and per-sensor is in same file. Make sure you are using numpy 1.24.4 to match the cluster
-# scp /media/disk_o/my_pickles/07_16* dzc5938@submit.hpc.psu.edu:/storage/group/dfc13/default/dcolson/my_pickles
+# scp /media/disk_o/my_pickles/07_22* dzc5938@submit.hpc.psu.edu:/storage/group/dfc13/default/dcolson/my_pickles
 
-outfile_name = "/media/disk_o/my_pickles/07_16_25_disk_d_phase_3_weight_1.pkl"
+outfile_name = "/media/disk_o/my_pickles/07_22_25_disk_d_phase_3_cfd_4.pkl"
 with open(
     outfile_name,
     "wb",
