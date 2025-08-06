@@ -5,9 +5,8 @@ Starting with processing the real data:
   my_analysis/format_for_NN_more_tagging.py where the user can change various things depending on how/what they want to process the data.
   First, source /media/disk_o/cluster_match/bin/activate. This is just a python venv, but it's important that the data gets pickled in a numpy version compatible with the NN. If
   it is being really finicky, here is the list of all the packages I used that worked. Most importantly was the numpy version
-  
-  Package            Version
------------------- -----------
+
+package            ver
 asttokens          3.0.0
 awkward            2.8.4
 awkward_cpp        46
@@ -73,7 +72,7 @@ zipp               3.23.0
 
 Env for neural networks:
   before i describe how the NNs work, you need the proper env. The conda env was extremely painful to set up. These were the packages that made everything work without error
-# Name                    Version                   Build  Channel
+name                    Version                   build       channel
 _libgcc_mutex             0.1                 conda_forge    conda-forge
 _openmp_mutex             4.5                       2_gnu    conda-forge
 absl-py                   2.3.0                    pypi_0    pypi
