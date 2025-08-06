@@ -295,6 +295,7 @@ PMT_channel_delay_dict = {
     "adc_b4_ch11": np.float64(4.616013355376873),
     # adc_b4_ch13 and adc_b4_ch14 5.5 + 3.990100536262517
 }
+voltageFactor = 2000 / (pow(2, 14) - 1)
 
 
 def get_1t_info(fname: str):
@@ -493,7 +494,7 @@ def nn_is_dumb(hitnet_inp, all_chargenet_inp, per_chargenet_inp):
     # print("final hitnet[3]", hitnet_inp[3])
     hit_time_shift = 60 - min(hitnet_inp[3])
     hitnet_inp[3] = [hit_time + hit_time_shift for hit_time in hitnet_inp[3]]
-    print("nn_is_dumb", all_chargenet_inp)
+    print("post nn_is_dum all chargenet inp", all_chargenet_inp)
     return hitnet_inp, all_chargenet_inp, per_chargenet_inp
 
 
@@ -549,11 +550,11 @@ def constant_fraction_time(waveform, fraction=0.5, time_step=1.0):
 
 def get_channel_charge(waveform):
     """Takes in a raw waveform. Does baseline subtraction, makes it positive, make window of
-    size 60ns / 30 sample, integrate by just taking sum (nothing fancy), divide by 50 (resistance),
+    size 10, integrate, divide by 50 (resistance),
     returns charge in pC"""
-    based_flipped = base_and_flip(waveform)
+    based_flipped = base_and_flip(waveform) * voltageFactor
     time_of_max = np.argmax(based_flipped)
-    charge_pC = np.sum(based_flipped[time_of_max - 5 : time_of_max + 5]) / 50
+    charge_pC = np.sum(based_flipped[time_of_max - 5 : time_of_max + 5]) * 2 / 50 # 10 points, 2ns dt, 50ohms
     return charge_pC
 
 
@@ -575,7 +576,7 @@ def is_pulse(waveform: np.ndarray, range_min: int = 0, range_max: int = 1928) ->
     Uses charge to determine if the pulse exceeds threshold or is just noise / fluctuations
     """
     wave_cut = waveform[range_min:range_max]
-    if get_channel_charge(wave_cut) > 15:
+    if get_channel_charge(wave_cut) >= 2:
         return True
     return False
 
@@ -679,19 +680,16 @@ def get_all_sensor_input(fname: str, peak_method: str):
     """Takes in a file path and a peak_method, which is either CFD or weighted avg.
     Then the information for all-sensor chargenet AND all-sensor hitnet is returned.
     "all" refers to all-sensor and "per" refers to per-sensor. I tried to remember to
-    use "total" when talking about everything and "all" when referring to sensor type. 
+    use "total" when talking about everything and "all" when referring to sensor type.
     Now added per-sensor.
     """
-
     all_events = []
     per_events = []
     event_tagging_list = []
 
     traces = get_1t_info(fname)[0]
-
     alpha_events = alpha_event_list(traces)
-    num_events = len(traces["adc_b2_ch1"])  # pick arbitrary PMT, all same length
-
+    num_events = len(traces["adc_b1_ch1"])  # pick arbitrary PMT, all same length
     for i in range(num_events):
 
         # Skip over all alpha events, these are irrelevant ones
@@ -720,7 +718,8 @@ def get_all_sensor_input(fname: str, peak_method: str):
             waveform_charge = get_channel_charge(daisy_corrected_waveform)
 
             # do tagging
-            if waveform_charge > 15:
+            if waveform_charge >= 2:
+                # print(waveform_charge, "for key", key)
                 if key in TP_PMTs:
                     event_tagging_dict["TP"].append(key)
                 elif key in TP_supp_PMTs:
@@ -746,7 +745,7 @@ def get_all_sensor_input(fname: str, peak_method: str):
             per_chargenet_input[0].append(PMT_location_dict[key][0])
             per_chargenet_input[1].append(PMT_location_dict[key][1])
             per_chargenet_input[2].append(PMT_location_dict[key][2])
-            if waveform_charge < 15:  # this is equivalent to is_pulse
+            if waveform_charge < 2:  # this is equivalent to is_pulse
                 # assume this is dark count and zero, so any charge not due to muon
                 per_chargenet_input[3].append(0)
                 continue
@@ -790,13 +789,13 @@ def get_all_sensor_input(fname: str, peak_method: str):
 
         # if sum(event_tagging_dict.values(), []) == []: # could use truthy falsey to be cool
         #     continue # we don't want events without ANY tagging...
-        if len(event_tagging_dict["hodo"]) < 2:
+
+        if len(event_tagging_dict["TP_supp"]) < 1 or  len(event_tagging_dict["BP"]) < 1:
             continue
         print(event_tagging_dict)
         # chargenet input
         all_chargenet_input.append(temp_chargenet)
         all_chargenet_input.append(num_of_hits)
-
         try:
             # reassign to please the picky NN
             hitnet_input, all_chargenet_input, per_chargenet_input = nn_is_dumb(
@@ -804,10 +803,10 @@ def get_all_sensor_input(fname: str, peak_method: str):
             )
             # if total charge is greater than 5800pC, meaning that on average each PMT had
             # 100pC signal, just skip the whole event. Be conservative for best statistics
-            if all_chargenet_input[0] > 5800:
+            if all_chargenet_input[0] > 10_000:
                 print("skipped, too high charge")
                 continue
-            print("min hit time", min(hitnet_input[3]))  ###
+            # print("min hit time", min(hitnet_input[3]))  ###
             all_event = {
                 "hits": np.stack(hitnet_input, axis=1),
                 "total_charge": np.stack(all_chargenet_input),
@@ -841,11 +840,12 @@ phase_directory = "/media/disk_o/my_corrected_roots/disk_d_phase3/"  # corrected
 # phase_directory = "/media/disk_e/WbLS-DATA/raw_root/phase4/muon/" # Dec 03, 2024
 # phase_directory = "/media/disk_k/WbLS-DATA/raw_root/phase8/muon/" # Mar 11, 2025
 # phase_directory = "/media/disk_l/WbLS-DATA/raw_root/phase9/muon/"  # Mar 27, 2025
+# phase_directory = "/media/disk_o/my_corrected_roots/disk_l_phase9/" # corrected
 file_paths_in_phase = [
     phase_directory + str(f)
     for f in os.listdir(phase_directory)
     if os.path.isfile(os.path.join(phase_directory, f))
-][:50]
+]
 print("num of files", len(file_paths_in_phase))
 
 total_allsensor_events_for_phase = []
@@ -853,13 +853,13 @@ total_persensor_events_for_phase = []
 total_bottom_paddle_tags_for_phase = []
 for f in file_paths_in_phase:
     if "water" not in f:
-        # if "wbls" not in f:
+    # if "wbls" not in f:
         continue  # network was trained on water, now trained on wbls
     print("starting new file", f)
     try:
-        # f = quickly_correct_file(f, "/media/disk_o/my_corrected_roots/disk_d_phase3/corrected_" + f.split("/")[-1])
+        # f = quickly_correct_file(f, "/media/disk_o/my_corrected_roots/disk_l_phase9/corrected_" + f.split("/")[-1])
         allsensor_events, persensor_events, bottom_paddle_tags = get_all_sensor_input(
-            f, "cfd"
+            f, "weight"
         )  # change peak method HERE
         total_allsensor_events_for_phase.extend(allsensor_events)
         total_persensor_events_for_phase.extend(persensor_events)
@@ -884,18 +884,27 @@ print(
 ### THINGS THE USER CAN CHANGE:
 # source /media/disk_o/cluster_match/bin/activate !!!!!!
 # phase of data
+# if wbls / water in fname
 # peak method, CFD or Weight
-# CFD fraction
+# CFD fraction (0.4 for wbls)
 # output pickle file name
 # need to correct files or not
 # amount of files to look at
 ###
 # Data for all-sensor and per-sensor is in same file. Make sure you are using numpy 1.24.4 to match the cluster
-# scp /media/disk_o/my_pickles/07_22* dzc5938@submit.hpc.psu.edu:/storage/group/dfc13/default/dcolson/my_pickles
+# scp /media/disk_o/my_pickles/07_23* dzc5938@submit.hpc.psu.edu:/storage/group/dfc13/default/dcolson/my_pickles
 
-outfile_name = "/media/disk_o/my_pickles/07_22_25_disk_d_phase_3_cfd_4.pkl"
+outfile_name = "/media/disk_o/my_pickles/07_29_25_disk_d_phase_3_weight.pkl"
 with open(
     outfile_name,
     "wb",
 ) as f:
     pickle.dump(data_to_save, f)
+
+# 07_23_25_disk_d_phase_3_cfd_1 - all files, hodo > 2
+# 07_23_25_disk_d_phase_3_cfd_2 - 200 files, hodo > 2
+# 07_23_25_disk_d_phase_3_weight_2 - 200 files, hodo > 2
+
+# 07_29_25_disk_d_phase_3_cfd - at least one TP_supp hit
+# 07_29_25_disk_d_phase_3_weight - at least one TP_supp hit
+# why dont i make it so that both times are included in the pre processing... i suppose it doesn't really matter, just do both
