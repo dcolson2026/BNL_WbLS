@@ -1,5 +1,7 @@
 _SULI 2025 internship scripts and documentation for 1T_
 
+(look at this raw to see indentation and spacing)
+
 Starting with processing the real data:
   the raw data from the root files is not only raw but also incorrect. timing corrections must be made to account for daisy chain and channel delays. this is handled by
   my_analysis/format_for_NN_more_tagging.py where the user can change various things depending on how/what they want to process the data.
